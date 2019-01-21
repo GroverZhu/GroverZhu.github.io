@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="GroverZhu">
 <meta property="og:description" content="现在有关系模式如下所示：1234Department(dNo,dName,officeRoom,homePage)Student(sNo,sName,sex,age,dNo)Course(cNo,cName,cPNo,credit,dNo)SC(sNo,cNo,score,recorddate) 一、基本查询 查询所有年龄小于18岁的男生姓名   \pi_{sname}(\sigma_{age3}">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-21T07:11:25.036Z">
+<meta property="og:updated_time" content="2019-01-21T11:32:23.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库关系代数练习">
 <meta name="twitter:description" content="现在有关系模式如下所示：1234Department(dNo,dName,officeRoom,homePage)Student(sNo,sName,sex,age,dNo)Course(cNo,cName,cPNo,credit,dNo)SC(sNo,cNo,score,recorddate) 一、基本查询 查询所有年龄小于18岁的男生姓名   \pi_{sname}(\sigma_{age3}">
@@ -284,11 +284,6 @@
           
 
           
-             <span class="post-meta-divider">|</span>
-             <span id="busuanzi_value_page_pv"></span>次阅读
-          
-
-          
 
           
 
@@ -316,7 +311,7 @@
 <li>查询所有具有不及格记录的学生姓名   <script type="math/tex; mode=display">\pi_{sname}((\sigma_{score<60}(SC))\Join student)</script></li>
 <li>查询“信息学院”所有年龄小于18岁的女生姓名   <script type="math/tex; mode=display">\pi_{sname}((\sigma_{age<18\bigwedge sex='female'}(student))\Join (\sigma_{dname='\text{信息学院}'}(department)))</script></li>
 <li>查询所有选修了“数据库”课程的学生姓名   <script type="math/tex; mode=display">\pi_{sname}(\pi_{cno}(\pi_{cname='\text{数据库}'}(course))\Join SC \Join student)</script></li>
-<li>查询“信息学院”所有选修了“科学技术简史”课程的学生姓名   <script type="math/tex; mode=display">\pi_{sname}(\pi_{sno}(\sigma_{cname='\text{科学技术简史}'}(course))\Join SC\Join student \Join(\pi_{cname='\text{信息学院}'}(department)))$</script></li>
+<li>查询“信息学院”所有选修了“科学技术简史”课程的学生姓名   <script type="math/tex; mode=display">\pi_{sname}(\pi_{sno}(\sigma_{cname='\text{科学技术简史}'}(course))\Join SC\Join student \Join(\pi_{cname='\text{信息学院}'}(department)))</script></li>
 <li>查询选修了“数据结构”课程并且不及格的学生姓名   <script type="math/tex; mode=display">\pi_{sname}(\pi_{cno}(\sigma_{cname='\text{数据结构}'}(course))\Join (\sigma_{credit<60}(SC))\Join student)</script></li>
 <li>查询“计算机学院”选修了“概率论”课程且成绩大于等于80分的学生姓名   <script type="math/tex; mode=display">\pi_{sname}((\sigma_{dname='\text{计算机学院}'}\Join \pi_{cno}(\sigma_{cname='\text{概率论}'}(course))\Join (\sigma_{score\geq 80}(SC))\Join student)</script></li>
 <li>查询“文学院”开设的所有学分大于等于3的课程名称   <script type="math/tex; mode=display">\pi_{cname}((\sigma_{dname='\text{文学院}'}(department))\Join \sigma_{credit \geq 3}(course)))</script></li>
@@ -329,7 +324,7 @@
 <li>查询选修了“数据库”但没有选修“算法”课程的学生姓名   <script type="math/tex; mode=display">\pi_{sname}((\pi_{sno}(\sigma_{cname='\text{数据库}'}(course))\Join SC)-(\pi_{sno}(\sigma_{cname='\text{算法}'}(course))\Join SC))\Join student)</script></li>
 <li>查询没有选修“算法”课程的学生姓名   <script type="math/tex; mode=display">\pi_{sname}(student)-\pi_{sname}(\sigma_{cname='\text{算法}'}(course)\Join SC \Join student)</script></li>
 <li>查询仅仅选修了“算法”一门课程的学生姓名   <script type="math/tex; mode=display">\pi_{sname}((\pi_{sno}(SC)-\pi_{sno}(\pi_{cname<>'\text{算法}'}(course)\Join SC))\Join student)</script></li>
-<li>查询选修了“信息学院”开设的所有课程的学生姓名   <script type="math/tex; mode=display">\pi_{cno,sname}(SC\Join student)\div\pi_{cno}((\sigma_{dname='\text{信息学院}'}(department))\Join course)$</script></li>
+<li>查询选修了“信息学院”开设的所有课程的学生姓名   <script type="math/tex; mode=display">\pi_{cno,sname}(SC\Join student)\div\pi_{cno}((\sigma_{dname='\text{信息学院}'}(department))\Join course)</script></li>
 <li>查询选修了所有学分大于3课程的学生姓名   <script type="math/tex; mode=display">\pi_{sname}(\pi_{cno,sno}(SC)\div\pi_{cno}(\sigma_{credit>3}(course))\Join student)</script></li>
 <li>查询“数据库”课程所有不及格学生姓名及所在学院   <script type="math/tex; mode=display">\pi_{sname,dname}((\pi_{sno}(\sigma_{cname='\text{数据库}'}(course)\Join \sigma_{score<60}(SC))\Join student\Join department))</script></li>
 <li>查询“数据库”先修课的课程名称   <script type="math/tex; mode=display">\pi_{cname}(\pi_{cpno}(\sigma{cname='\text{数据库}'}(course \ \  AS\ \  C1)){\mathop \Join\limits_{C1.cpno=C2.cno}}(course\ \  AS\ \  C2))</script></li>
@@ -536,17 +531,6 @@
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
-
-<div>
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<span id="busuanzi_container_site_pv" style="display:none">
-    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
-    <span class="post-meta-divider">|</span>
-</span>
-<span id="busuanzi_container_site_uv" style="display:none">
-    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
-</span>
-</div>
 
 
 
