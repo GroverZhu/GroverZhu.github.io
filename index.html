@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -80,12 +80,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="GroverZhu">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="GroverZhu">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="GroverZhu">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <title>Hexo</title>
+  <title>GroverZhu</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -140,7 +140,7 @@
     
   
 
-  <div class="container sidebar-position-right 
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right 
   page-home">
     <div class="headband"></div>
 
@@ -152,7 +152,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">GroverZhu</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -229,6 +229,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/数据库关系代数练习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GroverZhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GroverZhu">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/21/数据库关系代数练习/" itemprop="url">数据库关系代数练习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T13:19:50+08:00">
+                2019-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>现在有关系模式如下所示：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Department(dNo,dName,officeRoom,homePage)</span><br><span class="line">Student(sNo,sName,sex,age,dNo)</span><br><span class="line">Course(cNo,cName,cPNo,credit,dNo)</span><br><span class="line">SC(sNo,cNo,score,recorddate)</span><br></pre></td></tr></table></figure></p>
+<p><strong>一、基本查询</strong><br>1、查询所有年龄小于18岁的男生姓名<br>$ \pi_{sname}(\sigma_{age<18\bigwedge sex="man" }(student))="" $="" 2、查询所有学分大于3的课程名称="" \pi_{cname}(\sigma_{credit="">3}(course)) $<br>3、查询所有没有先修课的课程名称<br>$ \pi_{cname}(\sigma_{cPNo\quad is\quad null}(course)) $<br><strong>二、连接查询</strong><br>1、查询“信息学院”所有学生姓名<br>$\pi_{sname}((\sigma_{dname=’\text{信息学院}’}(department))\Join student)$<br>2、查询所有具有不及格记录的学生姓名<br>$\pi_{sname}((\sigma_{score&lt;60}(SC))\Join student)$<br>3、查询“信息学院”所有年龄小于18岁的女生姓名<br>$\pi_{sname}((\sigma_{age&lt;18\bigwedge sex=’female’}(student))\Join (\sigma_{dname=’\text{信息学院}’}(department)))$<br>4、查询所有选修了“数据库”课程的学生姓名<br>$\pi_{sname}(\pi_{cno}(\pi_{cname=’\text{数据库}’}(course))\Join SC \Join student)$<br>5、查询“信息学院”所有选修了“科学技术简史”课程的学生姓名<br>$\pi_{sname}(\pi_{sno}(\sigma_{cname=’\text{科学技术简史}’}(course))\Join SC\Join student \Join(\pi_{cname=’\text{信息学院}’}(department)))$<br>6、查询选修了“数据结构”课程并且不及格的学生姓名<br>$\pi_{sname}(\pi_{cno}(\sigma_{cname=’\text{数据结构}’}(course))\Join (\sigma_{credit&lt;60}(SC))\Join student)$<br>7、查询“计算机学院”选修了“概率论”课程且成绩大于等于80分的学生姓名<br>$\pi_{sname}((\sigma_{dname=’\text{计算机学院}’}\Join \pi_{cno}(\sigma_{cname=’\text{概率论}’}(course))\Join (\sigma_{score\geq 80}(SC))\Join student)$<br>8、查询“文学院”开设的所有学分大于等于3的课程名称<br>$\pi_{cname}((\sigma_{dname=’\text{文学院}’}(department))\Join \sigma_{credit \geq 3}(course)))$<br>9、查询“信息学院”所有选修了“数据库”课程并且不及格的学生姓名及分数   </18\bigwedge></p>
+<script type="math/tex; mode=display">\pi_{sname,score}((\sigma_{dname='\text{信息学院}'}(department))\Join (\pi_{cno}(\sigma_{cname='\text{数据库}'}(course)))\Join (\sigma_{score<60}(SC))\Join student)</script><p>10、查询“王强”同学所选修的全部课程名称、学分以及开课学院。<br>$\pi_{cname,credit,dname}(\pi_{cno}(\sigma_{sname=’\text{王强}’}(student)\Join SC)\Join course \Join department)$<br><strong>三、综合查询</strong><br>1、查询选修了“数据库”或者选修了“算法”课程的学生姓名<br>$\pi_{sname}(\sigma_{cname=’\text{数据库}’\bigvee cname=’\text{算法}’}(course))\Join SC \Join student)$<br>2、查询选修了“数据库”并且选修了“算法”课程的学生姓名<br>$\pi_{sname((\pi_{sno,cno}(SC)\div(\sigma_{cname=’\text{数据库}’}\bigwedge cname=’\text{算法}’}(course))\Join student)$<br>3、查询选修了“数据库”但没有选修“算法”课程的学生姓名<br>$\pi_{sname}((\pi_{sno}(\sigma_{cname=’\text{数据库}’}(course))\Join SC)-(\pi_{sno}(\sigma_{cname=’\text{算法}’}(course))\Join SC))\Join student)$<br>4、查询没有选修“算法”课程的学生姓名<br>$\pi_{sname}(student)-\pi_{sname}(\sigma_{cname=’\text{算法}’}(course)\Join SC \Join student)$<br>5、查询仅仅选修了“算法”一门课程的学生姓名<br>$\pi_{sname}((\pi_{sno}(SC)-\pi_{sno}(\pi_{cname&lt;&gt;’\text{算法}’}(course)\Join SC))\Join student)$<br>6、查询选修了“信息学院”开设的所有课程的学生姓名<br>$\pi_{cno,sname}(SC\Join student)\div\pi_{cno}((\sigma_{dname=’\text{信息学院}’}(department))\Join course)$<br>7、查询选修了所有学分大于3课程的学生姓名<br>$\pi_{sname}(\pi_{cno,sno}(SC)\div\pi_{cno}(\sigma_{credit&gt;3}(course))\Join student)$<br>8、查询“数据库”课程所有不及格学生姓名及所在学院<br>$\pi_{sname,dname}((\pi_{sno}(\sigma_{cname=’\text{数据库}’}(course)\Join \sigma_{score&lt;60}(SC))\Join student\Join department))$<br>9、查询“数据库”先修课的课程名称<br>$\pi_{cname}(\pi_{cpno}(\sigma{cname=’\text{数据库}’}(course \quad AS\quad C1)){\mathop \Join\limits_{C1.cpno=C2.cno}}(course\quad AS\quad C2))$<br>10、查询先修课为“数据库”的课程名称<br>$\pi_{cname}(\pi_{cpno}(\sigma{cname=’\text{数据库}’}(course \quad AS\quad C1)){\mathop \Join\limits_{C1.cno=C2.cpno}}(course\quad AS\quad C2))$</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -238,7 +360,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="GroverZhu">
     </span>
 
     
@@ -390,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -398,6 +520,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
@@ -607,6 +738,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
 
   
 
