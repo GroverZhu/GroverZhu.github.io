@@ -300,11 +300,16 @@
       
         
           
-            <p>现在有关系模式如下所示：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Department(dNo,dName,officeRoom,homePage)</span><br><span class="line">Student(sNo,sName,sex,age,dNo)</span><br><span class="line">Course(cNo,cName,cPNo,credit,dNo)</span><br><span class="line">SC(sNo,cNo,score,recorddate)</span><br></pre></td></tr></table></figure></p>
-<p><strong>一、基本查询</strong><br>1、查询所有年龄小于18岁的男生姓名<br>$ \pi_{sname}(\sigma_{age<18\bigwedge sex="man" }(student))="" $="" 2、查询所有学分大于3的课程名称="" \pi_{cname}(\sigma_{credit="">3}(course)) $<br>3、查询所有没有先修课的课程名称<br>$ \pi_{cname}(\sigma_{cPNo\quad is\quad null}(course)) $<br><strong>二、连接查询</strong><br>1、查询“信息学院”所有学生姓名<br>$\pi_{sname}((\sigma_{dname=’\text{信息学院}’}(department))\Join student)$<br>2、查询所有具有不及格记录的学生姓名<br>$\pi_{sname}((\sigma_{score&lt;60}(SC))\Join student)$<br>3、查询“信息学院”所有年龄小于18岁的女生姓名<br>$\pi_{sname}((\sigma_{age&lt;18\bigwedge sex=’female’}(student))\Join (\sigma_{dname=’\text{信息学院}’}(department)))$<br>4、查询所有选修了“数据库”课程的学生姓名<br>$\pi_{sname}(\pi_{cno}(\pi_{cname=’\text{数据库}’}(course))\Join SC \Join student)$<br>5、查询“信息学院”所有选修了“科学技术简史”课程的学生姓名<br>$\pi_{sname}(\pi_{sno}(\sigma_{cname=’\text{科学技术简史}’}(course))\Join SC\Join student \Join(\pi_{cname=’\text{信息学院}’}(department)))$<br>6、查询选修了“数据结构”课程并且不及格的学生姓名<br>$\pi_{sname}(\pi_{cno}(\sigma_{cname=’\text{数据结构}’}(course))\Join (\sigma_{credit&lt;60}(SC))\Join student)$<br>7、查询“计算机学院”选修了“概率论”课程且成绩大于等于80分的学生姓名<br>$\pi_{sname}((\sigma_{dname=’\text{计算机学院}’}\Join \pi_{cno}(\sigma_{cname=’\text{概率论}’}(course))\Join (\sigma_{score\geq 80}(SC))\Join student)$<br>8、查询“文学院”开设的所有学分大于等于3的课程名称<br>$\pi_{cname}((\sigma_{dname=’\text{文学院}’}(department))\Join \sigma_{credit \geq 3}(course)))$<br>9、查询“信息学院”所有选修了“数据库”课程并且不及格的学生姓名及分数   </18\bigwedge></p>
-<script type="math/tex; mode=display">\pi_{sname,score}((\sigma_{dname='\text{信息学院}'}(department))\Join (\pi_{cno}(\sigma_{cname='\text{数据库}'}(course)))\Join (\sigma_{score<60}(SC))\Join student)</script><p>10、查询“王强”同学所选修的全部课程名称、学分以及开课学院。<br>$\pi_{cname,credit,dname}(\pi_{cno}(\sigma_{sname=’\text{王强}’}(student)\Join SC)\Join course \Join department)$<br><strong>三、综合查询</strong><br>1、查询选修了“数据库”或者选修了“算法”课程的学生姓名<br>$\pi_{sname}(\sigma_{cname=’\text{数据库}’\bigvee cname=’\text{算法}’}(course))\Join SC \Join student)$<br>2、查询选修了“数据库”并且选修了“算法”课程的学生姓名<br>$\pi_{sname((\pi_{sno,cno}(SC)\div(\sigma_{cname=’\text{数据库}’}\bigwedge cname=’\text{算法}’}(course))\Join student)$<br>3、查询选修了“数据库”但没有选修“算法”课程的学生姓名<br>$\pi_{sname}((\pi_{sno}(\sigma_{cname=’\text{数据库}’}(course))\Join SC)-(\pi_{sno}(\sigma_{cname=’\text{算法}’}(course))\Join SC))\Join student)$<br>4、查询没有选修“算法”课程的学生姓名<br>$\pi_{sname}(student)-\pi_{sname}(\sigma_{cname=’\text{算法}’}(course)\Join SC \Join student)$<br>5、查询仅仅选修了“算法”一门课程的学生姓名<br>$\pi_{sname}((\pi_{sno}(SC)-\pi_{sno}(\pi_{cname&lt;&gt;’\text{算法}’}(course)\Join SC))\Join student)$<br>6、查询选修了“信息学院”开设的所有课程的学生姓名<br>$\pi_{cno,sname}(SC\Join student)\div\pi_{cno}((\sigma_{dname=’\text{信息学院}’}(department))\Join course)$<br>7、查询选修了所有学分大于3课程的学生姓名<br>$\pi_{sname}(\pi_{cno,sno}(SC)\div\pi_{cno}(\sigma_{credit&gt;3}(course))\Join student)$<br>8、查询“数据库”课程所有不及格学生姓名及所在学院<br>$\pi_{sname,dname}((\pi_{sno}(\sigma_{cname=’\text{数据库}’}(course)\Join \sigma_{score&lt;60}(SC))\Join student\Join department))$<br>9、查询“数据库”先修课的课程名称<br>$\pi_{cname}(\pi_{cpno}(\sigma{cname=’\text{数据库}’}(course \quad AS\quad C1)){\mathop \Join\limits_{C1.cpno=C2.cno}}(course\quad AS\quad C2))$<br>10、查询先修课为“数据库”的课程名称<br>$\pi_{cname}(\pi_{cpno}(\sigma{cname=’\text{数据库}’}(course \quad AS\quad C1)){\mathop \Join\limits_{C1.cno=C2.cpno}}(course\quad AS\quad C2))$</p>
-
-          
+          现在有关系模式如下所示：1234Department(dNo,dName,officeRoom,homePage)Student(sNo,sName,sex,age,dNo)Course(cNo,cName,cPNo,credit,dNo)SC(sNo,cNo,score,recorddate)
+一
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/21/数据库关系代数练习/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -422,17 +427,15 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/21/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
