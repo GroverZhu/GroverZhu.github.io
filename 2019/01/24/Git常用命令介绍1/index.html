@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="git,">
+  <meta name="keywords" content="Git,">
 
 
 
@@ -79,20 +79,27 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp; 关于Git，对于程序员肯定不陌生，全球最大“同性交友”网站GitHub便是基于Git创建，Git与GitHub的关系，从名字上就可以看出GitHub就是基于Git的一个仓库(hub)，Git是一个分布式版本控制软件，而GitHub就是基于该版本控制软件而创建的一个网站。&amp;emsp;&amp;emsp;有些人会觉得Git与GitHub其实差不多，但实际上，如果你需要往GitHub这">
-<meta name="keywords" content="git">
+<meta name="description" content="&amp;emsp;&amp;emsp;使用Git，通过命令行操作能够更深入理解Git的工作机制，今天就来介绍一些常用的Git命令。&amp;emsp;&amp;emsp;对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。&amp;emsp;&amp;emsp;现在先介绍Git的第一个命令1git help 在终端敲好该命令后，按下回车，">
+<meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git简介">
-<meta property="og:url" content="http://yoursite.com/2019/01/23/Git简介/index.html">
+<meta property="og:title" content="Git常用命令介绍1">
+<meta property="og:url" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/index.html">
 <meta property="og:site_name" content="GroverZhu">
-<meta property="og:description" content="&amp;emsp;&amp;emsp; 关于Git，对于程序员肯定不陌生，全球最大“同性交友”网站GitHub便是基于Git创建，Git与GitHub的关系，从名字上就可以看出GitHub就是基于Git的一个仓库(hub)，Git是一个分布式版本控制软件，而GitHub就是基于该版本控制软件而创建的一个网站。&amp;emsp;&amp;emsp;有些人会觉得Git与GitHub其实差不多，但实际上，如果你需要往GitHub这">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;使用Git，通过命令行操作能够更深入理解Git的工作机制，今天就来介绍一些常用的Git命令。&amp;emsp;&amp;emsp;对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。&amp;emsp;&amp;emsp;现在先介绍Git的第一个命令1git help 在终端敲好该命令后，按下回车，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/01/23/Git简介/git_bash.jpg">
-<meta property="og:updated_time" content="2019-01-24T03:00:55.469Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/help.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/clone_help.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/clone_browser.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/clone.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/clone_project.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/project.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/init.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/dir.jpg">
+<meta property="og:updated_time" content="2019-01-24T07:32:24.878Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git简介">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp; 关于Git，对于程序员肯定不陌生，全球最大“同性交友”网站GitHub便是基于Git创建，Git与GitHub的关系，从名字上就可以看出GitHub就是基于Git的一个仓库(hub)，Git是一个分布式版本控制软件，而GitHub就是基于该版本控制软件而创建的一个网站。&amp;emsp;&amp;emsp;有些人会觉得Git与GitHub其实差不多，但实际上，如果你需要往GitHub这">
-<meta name="twitter:image" content="http://yoursite.com/2019/01/23/Git简介/git_bash.jpg">
+<meta name="twitter:title" content="Git常用命令介绍1">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;使用Git，通过命令行操作能够更深入理解Git的工作机制，今天就来介绍一些常用的Git命令。&amp;emsp;&amp;emsp;对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。&amp;emsp;&amp;emsp;现在先介绍Git的第一个命令1git help 在终端敲好该命令后，按下回车，">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/help.jpg">
 
 
 
@@ -122,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/23/Git简介/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/24/Git常用命令介绍1/">
 
 
 
 
 
-  <title>Git简介 | GroverZhu</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Git常用命令介绍1 | GroverZhu</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -235,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/Git简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/Git常用命令介绍1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GroverZhu">
@@ -252,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Git简介</h1>
+          <h1 class="post-title" itemprop="name headline">Git常用命令介绍1</h1>
         
 
         <div class="post-meta">
@@ -264,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T21:01:03+08:00">
-                2019-01-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T14:02:15+08:00">
+                2019-01-24
               </time>
             
 
@@ -307,15 +314,26 @@
       
 
       
-        <p>&emsp;&emsp; 关于Git，对于程序员肯定不陌生，全球最大“同性交友”网站<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>便是基于Git创建，Git与GitHub的关系，从名字上就可以看出GitHub就是基于Git的一个仓库(hub)，Git是一个<strong>分布式版本控制软件</strong>，而GitHub就是基于该版本控制软件而创建的一个网站。<br>&emsp;&emsp;有些人会觉得Git与GitHub其实差不多，但实际上，如果你需要往GitHub这个网站上传你的代码，那么你需要通过Git该分布式版本控制软件来上传你的代码，但是你要查找别人的代码，那么你就需要从GitHub这个网站上搜索，对于网站的操作，并不会很麻烦，有图形化界面，所以我们的目标应该是先放在对Git这个分布式版本控制软件的使用。<br>&emsp;&emsp;所以在上面讲了那么多次Git是分布式版本控制软件，那么什么叫<strong>分布式</strong>，什么又叫<strong>版本控制软件</strong>。对于<strong>分布式</strong>，你可以理解为“鸡蛋不能放在同一个筐里”，<strong>版本控制</strong>可以理解为，你导师要你写一份论文，但是每次你提交论文给你的导师，他都会提一些修改，你为了避免改后的论文比之前的还要糟糕，你把每次提交的论文都保存下来，然后你的论文就变成下面这样的形式：</p>
+        <p>&emsp;&emsp;使用Git，通过命令行操作能够更深入理解Git的工作机制，今天就来介绍一些常用的Git命令。<br>&emsp;&emsp;对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。<br>&emsp;&emsp;现在先介绍Git的第一个命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">help</span></span><br></pre></td></tr></table></figure></p>
+<p>在终端敲好该命令后，按下回车，你会看到如下的显示：<br><img src="/2019/01/24/Git常用命令介绍1/help.jpg"><br>&emsp;&emsp;可以看到help界面中把Git的操作分为5类，后续的文章会根据这个顺序来解释这些命令。可以看到这个help页面中，对于Git命令的分类为：   </p>
 <blockquote>
 <blockquote>
 <blockquote>
-<p>“paper1.docx”<br>“paper2.docx”<br>“paper3.docx”<br>…   </p>
+<ol>
+<li>开始一个工作空间</li>
+<li>对当前的工作空间进行操作</li>
+<li>检查历史记录和状态</li>
+<li>对历史记录的操作</li>
+<li>合作   </li>
+</ol>
 </blockquote>
 </blockquote>
 </blockquote>
-<p>&emsp;&emsp; 那么，如果你使用了版本控制软件之后，你就可以在每次修改之后把每次修改的内容写一个概要，但是你的论文文件就只有一个文件，就不会像前面那样会产生无数个文件，到最后连自己都不知道哪个是最新的了，这就是版本控制。<br>&emsp;&emsp; 那么你的文件就相当于那些“鸡蛋”，分布式就是你把这些“鸡蛋”放在不同的“篮筐”里，Git就是 <strong>“鸡蛋”+“篮筐”</strong><br>&emsp;&emsp; 既然Git是个软件，就先到<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a>官网针对你的操作系统安装对应的版本，博主是在Windows10下安装，其他平台安装可参考其他网站，在Windows下安装，可以一键next，安装后，右击鼠标会出现<code>Git Bash Here</code>和<code>Git GUI Here</code> , 如下图所示：<br><img src="/2019/01/23/Git简介/git_bash.jpg"><br>出现上图的图标，那么恭喜骚年，你安装成功了，后面的话，就会对Git的命令行使用进行解释<br>&emsp;&emsp; 也许，你会觉得我在逗你玩，那不是有GUI吗？干嘛不用GUI却去用了命令行，是不是自讨苦吃啊！但是我说你不觉得用命令行整个逼格就高了吗？<br>&emsp;&emsp; 当然GUI确实入门比较快，如果你很排斥命令行的话，可自行百度<code>Tortoise Git</code>，这个我没有用过但是身边有人用过，反应这个比Git自带的GUI友好些，如果你想更熟练地使用Git，那我还是建议你使用命令行，毕竟Git最初的设计就是在命令行下使用的。在后续的文章我只会介绍Git的命令行操作</p>
+<p>&emsp;&emsp;上述这些操作也是使用Git的一般过程：<strong>从创建一个工作空间，对该工作空间进行的操作，操作的过程中会对历史记录进行操作，共享该工作空间与他人合作。</strong><br>&emsp;&emsp;现在继续介绍<code>git help</code>命令，如果你忘了某个命令的具体使用，比如clone这个命令，那么，你可以在控制台上输入<code>git help clone</code><br><img src="/2019/01/24/Git常用命令介绍1/clone_help.jpg"><br>之后你的浏览器就会显示出给命令的详细帮助手册(不需要联网，所有的帮助文档都在你的本地硬盘里)，然而很可惜，还是英文的。<br><img src="/2019/01/24/Git常用命令介绍1/clone_browser.jpg"><br>还是像上文说的那样，这种官方帮助文档，你可以不使用，但你要知道有这么一种东西，万一哪天情况很急，你又忘记了某一个命令的是有而且还没有其他的途径来获取帮助，这时候就可以通过官方提供的文档来解决你的问题。<br>&emsp;&emsp;接着我们来介绍一下开启一个工作空间的两种方法<br><strong>从已有的项目直接复制一份过来，在此基础上进行后续的工作</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> URL路径</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;比如在GitHub上要复制一个项目， 先该项目的主界面下，找到<strong>Clone or download</strong>按钮，然后复制提供的路径，对于开源的项目，提供的<em>HTTPS</em>还是<em>SSH</em>连接没有什么区别，对于私有的项目会有些许区别，这在后续会介绍，操作如下图所示：<br><img src="/2019/01/24/Git常用命令介绍1/clone.jpg"><br>在终端输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/GroverZhu/JSP-Servlet.git</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/01/24/Git常用命令介绍1/clone_project.jpg">
+<p>之后就会在你的终端的目录下复制下该项目<br><img src="/2019/01/24/Git常用命令介绍1/project.jpg"><br>这个命令用的好，代码写得少。身边的人，Git用的不好，但这个命令记得可清楚了，一天完成n个项目不再是梦，别问怎么写的，问就是<code>git clone</code>。<br><strong>从零开始创建一个工作空间</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<p>选择一个目录，可以使用bash命令创建一个文件夹<code>mkdir tmp</code>，然后进入该文件夹<code>cd tmp/</code>,再输入<code>git init</code><br><img src="/2019/01/24/Git常用命令介绍1/init.jpg"><br><em>init</em>就是<em>initial</em>的缩写，即初始化，之后你可以进入文件夹<em>tmp</em>中查看，会有一个隐藏文件夹<em>.git</em>，这样就初始化好了，你就拥有一个Git工作空间了<br><img src="/2019/01/24/Git常用命令介绍1/dir.jpg"><br>&emsp;&emsp;此次对Git命令的介绍就到此，Git的掌握一定要通过自己亲手操作，Git是一个工具，工具的掌握就是孰能生巧。</p>
 
       
     </div>
@@ -333,7 +351,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag"># git</a>
+            <a href="/tags/Git/" rel="tag"># Git</a>
           
         </div>
       
@@ -346,8 +364,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/22/SQL练习/" rel="next" title="SQL练习">
-                <i class="fa fa-chevron-left"></i> SQL练习
+              <a href="/2019/01/23/Git简介/" rel="next" title="Git简介">
+                <i class="fa fa-chevron-left"></i> Git简介
               </a>
             
           </div>
@@ -355,10 +373,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/24/Git常用命令介绍1/" rel="prev" title="Git常用命令介绍1">
-                Git常用命令介绍1 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
