@@ -82,7 +82,7 @@
 <meta name="description" content="&amp;emsp;&amp;emsp;使用Git，通过命令行操作能够更深入理解Git的工作机制，今天就来介绍一些常用的Git命令。&amp;emsp;&amp;emsp;对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。&amp;emsp;&amp;emsp;现在先介绍Git的第一个命令1git help 在终端敲好该命令后，按下回车，">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git常用命令介绍1">
+<meta property="og:title" content="Git常用命令介绍Ⅰ">
 <meta property="og:url" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/index.html">
 <meta property="og:site_name" content="GroverZhu">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;使用Git，通过命令行操作能够更深入理解Git的工作机制，今天就来介绍一些常用的Git命令。&amp;emsp;&amp;emsp;对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。&amp;emsp;&amp;emsp;现在先介绍Git的第一个命令1git help 在终端敲好该命令后，按下回车，">
@@ -95,9 +95,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/project.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/init.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/dir.jpg">
-<meta property="og:updated_time" content="2019-01-24T07:32:24.878Z">
+<meta property="og:updated_time" content="2019-01-29T09:10:01.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git常用命令介绍1">
+<meta name="twitter:title" content="Git常用命令介绍Ⅰ">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;使用Git，通过命令行操作能够更深入理解Git的工作机制，今天就来介绍一些常用的Git命令。&amp;emsp;&amp;emsp;对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。&amp;emsp;&amp;emsp;现在先介绍Git的第一个命令1git help 在终端敲好该命令后，按下回车，">
 <meta name="twitter:image" content="http://yoursite.com/2019/01/24/Git常用命令介绍1/help.jpg">
 
@@ -135,7 +135,7 @@
 
 
 
-  <title>Git常用命令介绍1 | GroverZhu</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Git常用命令介绍Ⅰ | GroverZhu</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Git常用命令介绍1</h1>
+          <h1 class="post-title" itemprop="name headline">Git常用命令介绍Ⅰ</h1>
         
 
         <div class="post-meta">
@@ -333,7 +333,7 @@
 <p>&emsp;&emsp;比如在GitHub上要复制一个项目， 先该项目的主界面下，找到<strong>Clone or download</strong>按钮，然后复制提供的路径，对于开源的项目，提供的<em>HTTPS</em>还是<em>SSH</em>连接没有什么区别，对于私有的项目会有些许区别，这在后续会介绍，操作如下图所示：<br><img src="/2019/01/24/Git常用命令介绍1/clone.jpg"><br>在终端输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/GroverZhu/JSP-Servlet.git</span><br></pre></td></tr></table></figure></p>
 <img src="/2019/01/24/Git常用命令介绍1/clone_project.jpg">
 <p>之后就会在你的终端的目录下复制下该项目<br><img src="/2019/01/24/Git常用命令介绍1/project.jpg"><br>这个命令用的好，代码写得少。身边的人，Git用的不好，但这个命令记得可清楚了，一天完成n个项目不再是梦，别问怎么写的，问就是<code>git clone</code>。<br><strong>从零开始创建一个工作空间</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
-<p>选择一个目录，可以使用bash命令创建一个文件夹<code>mkdir tmp</code>，然后进入该文件夹<code>cd tmp/</code>,再输入<code>git init</code><br><img src="/2019/01/24/Git常用命令介绍1/init.jpg"><br><em>init</em>就是<em>initial</em>的缩写，即初始化，之后你可以进入文件夹<em>tmp</em>中查看，会有一个隐藏文件夹<em>.git</em>，这样就初始化好了，你就拥有一个Git工作空间了<br><img src="/2019/01/24/Git常用命令介绍1/dir.jpg"><br>&emsp;&emsp;此次对Git命令的介绍就到此，Git的掌握一定要通过自己亲手操作，Git是一个工具，工具的掌握就是孰能生巧。</p>
+<p>选择一个目录，可以使用bash命令创建一个文件夹<code>mkdir tmp</code>，然后进入该文件夹<code>cd tmp/</code>,再输入<code>git init</code><br><img src="/2019/01/24/Git常用命令介绍1/init.jpg"><br><em>init</em>就是<em>initial</em>的缩写，即初始化，之后你可以进入文件夹<em>tmp</em>中查看，会有一个隐藏文件夹<em>.git</em>，这样就初始化好了，你就拥有一个Git工作空间了<br><img src="/2019/01/24/Git常用命令介绍1/dir.jpg"><br>&emsp;&emsp;此次对Git命令的介绍就到此，Git的掌握一定要通过自己亲手操作，Git是一个工具，工具的掌握就是熟能生巧。</p>
 
       
     </div>
