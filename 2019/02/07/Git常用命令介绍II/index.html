@@ -88,7 +88,15 @@
 <meta property="og:description" content="&amp;emsp;&amp;emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个test文件夹，在该文件夹下创建一个a.txt&amp;emsp;&amp;emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到GNU下载相关的package，进行相">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/bash.jpg">
-<meta property="og:updated_time" content="2019-02-07T15:07:10.461Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/8.jpg">
+<meta property="og:updated_time" content="2019-02-07T16:08:11.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git常用命令介绍Ⅱ">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个test文件夹，在该文件夹下创建一个a.txt&amp;emsp;&amp;emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到GNU下载相关的package，进行相">
@@ -301,7 +309,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  136 字
+                  788 字
                 </span>
               
 
@@ -317,7 +325,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -338,7 +346,14 @@
       
 
       
-        <p>&emsp;&emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个<code>test</code>文件夹，在该文件夹下创建一个<code>a.txt</code><br><img src="/2019/02/07/Git常用命令介绍II/bash.jpg"><br>&emsp;&emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到<a href="http://gnuwin32.sourceforge.net/" target="_blank" rel="noopener">GNU</a>下载相关的package，进行相关配置，就可以像在Linux下运行相关命令。</p>
+        <p>&emsp;&emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个<code>test</code>文件夹，在该文件夹下创建一个<code>a.txt</code><br><img src="/2019/02/07/Git常用命令介绍II/bash.jpg"><br>&emsp;&emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到<a href="http://gnuwin32.sourceforge.net/" target="_blank" rel="noopener">GNU</a>下载相关的package，进行相关配置，就可以像在Linux下运行相关命令。<br>&emsp;&emsp;先通过<code>git init</code>来初始化本地Git仓库，接着编辑<code>a.txt</code><br><img src="/2019/02/07/Git常用命令介绍II/1.jpg"><br>&emsp;&emsp;要在本地仓库提交的话，需要进行先运行<code>git add</code>, 再进行<code>git commit</code>。其中<code>git add</code>是将你当前的仓库内容提交到暂存区，暂存区的话，你可以把它当作你去从家坐车到学校，那么车就是你从家到学校的暂存区，执行<code>git add</code>相当与你现在坐上车，再<code>git commit</code>之后才能到目的地即工作区<br>完整的命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 你要提交的文件名或文件夹名</span><br><span class="line">git commit -m <span class="string">"提交信息"</span></span><br></pre></td></tr></table></figure></p>
+<img src="/2019/02/07/Git常用命令介绍II/2.jpg">   
+<p>&emsp;&emsp;此时你会发现无法提交，因为git不知道你是谁，就像如果你做的车是动车的话，你得有身份证才能够买票就坐，所以此时git给出相应的提示，让你告诉git你是谁。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">"你的邮箱地址"</span></span><br><span class="line">git config --global user.name <span class="string">"你的名字"</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;登记自己的名字和邮箱之后，可以通过<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></p>
+<p>来查看是否登记成功<br><img src="/2019/02/07/Git常用命令介绍II/3.jpg"><br>&emsp;&emsp;再次进行<code>git commit</code>，可以查看结果：<br><img src="/2019/02/07/Git常用命令介绍II/4.jpg"><br>&emsp;&emsp;此时就提交成功，想想如果有10+个文件要提交，那么你add的时候一定要打那么多的文件名吗？其实可以使用<code>git add --all</code>表示将当前的所有未提交或者被改变了的文件提交到暂存区里面。<br>&emsp;&emsp;这样的话，我们就要知道当前工作区里面是否有改变，就需要使用<code>git status</code>来查看当前目录下的文件是否发生变化。可以增加一个<code>b.txt</code>及修改<code>a.txt</code>里面的内容之后来看<br><img src="/2019/02/07/Git常用命令介绍II/5.jpg"><br>&emsp;&emsp;由此可以看到，git是很智能的，他提示<code>a.txt</code>被修改，<code>b.txt</code>未被跟踪，接着用<code>git add</code> 与 <code>git commit</code>提交<br><img src="/2019/02/07/Git常用命令介绍II/6.jpg"><br>&emsp;&emsp;如果<code>git add</code>和<code>git commit</code>的次数多了，怎么知道之前的commit是什么？，可以使用<br><code>git log</code>来显示每一次的提交<br><img src="/2019/02/07/Git常用命令介绍II/7.jpg"><br>&emsp;&emsp;这个偶尔会有可能中文显示不出来，可以使用下述命令行来显示中文<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;虽然这个命令行很有用，但是每次显示的太臃肿了，信息太多，我们需要一个比较简明的内容，这时候就需要考虑到强大的别名<code>alias</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.logs <span class="string">"log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span></span><br></pre></td></tr></table></figure></p>
+<img src="/2019/02/07/Git常用命令介绍II/8.jpg">   
+<p>&emsp;&emsp;通过<code>logs</code>别名输出简明的git日志。</p>
 
       
     </div>
@@ -507,7 +522,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">5.4k</span>
+    <span title="Site words total count">6.1k</span>
   
 </div>
 
