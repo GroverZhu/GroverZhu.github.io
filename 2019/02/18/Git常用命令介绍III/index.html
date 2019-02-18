@@ -79,28 +79,26 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个test文件夹，在该文件夹下创建一个a.txt&amp;emsp;&amp;emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到GNU下载相关的package，进行相">
+<meta name="description" content="&amp;emsp;&amp;emsp;在使用git的过程中，并不是每一次的add，commit都是你所预期要提交的，总有失手的时候，有可能你在add的时候你多加了个文件，或者commit之后你后悔了，觉得这次的提交不应该包含这么多的东西。Git的设计还是很友好的，让你有后悔的机会去改正。    &amp;emsp;&amp;emsp;介绍几个常见的情形：     你在一次任务完成后，你要提交代码，使用git add .命令，在">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git常用命令介绍Ⅱ">
-<meta property="og:url" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/index.html">
+<meta property="og:title" content="Git常用命令介绍ⅲ">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/index.html">
 <meta property="og:site_name" content="GroverZhu">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个test文件夹，在该文件夹下创建一个a.txt&amp;emsp;&amp;emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到GNU下载相关的package，进行相">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在使用git的过程中，并不是每一次的add，commit都是你所预期要提交的，总有失手的时候，有可能你在add的时候你多加了个文件，或者commit之后你后悔了，觉得这次的提交不应该包含这么多的东西。Git的设计还是很友好的，让你有后悔的机会去改正。    &amp;emsp;&amp;emsp;介绍几个常见的情形：     你在一次任务完成后，你要提交代码，使用git add .命令，在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/bash.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/2.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/3.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/4.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/5.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/6.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/7.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/8.jpg">
-<meta property="og:updated_time" content="2019-02-18T06:31:06.448Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/7.jpg">
+<meta property="og:updated_time" content="2019-02-18T07:38:21.532Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git常用命令介绍Ⅱ">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个test文件夹，在该文件夹下创建一个a.txt&amp;emsp;&amp;emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到GNU下载相关的package，进行相">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/07/Git常用命令介绍II/bash.jpg">
+<meta name="twitter:title" content="Git常用命令介绍ⅲ">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在使用git的过程中，并不是每一次的add，commit都是你所预期要提交的，总有失手的时候，有可能你在add的时候你多加了个文件，或者commit之后你后悔了，觉得这次的提交不应该包含这么多的东西。Git的设计还是很友好的，让你有后悔的机会去改正。    &amp;emsp;&amp;emsp;介绍几个常见的情形：     你在一次任务完成后，你要提交代码，使用git add .命令，在">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/18/Git常用命令介绍III/1.jpg">
 
 
 
@@ -130,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/07/Git常用命令介绍II/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/Git常用命令介绍III/">
 
 
 
 
 
-  <title>Git常用命令介绍Ⅱ | GroverZhu</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Git常用命令介绍ⅲ | GroverZhu</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -243,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/Git常用命令介绍II/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/Git常用命令介绍III/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GroverZhu">
@@ -260,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Git常用命令介绍Ⅱ</h1>
+          <h1 class="post-title" itemprop="name headline">Git常用命令介绍ⅲ</h1>
         
 
         <div class="post-meta">
@@ -272,8 +270,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-07T22:52:43+08:00">
-                2019-02-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T14:32:37+08:00">
+                2019-02-18
               </time>
             
 
@@ -309,7 +307,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  788 字
+                  684 字
                 </span>
               
 
@@ -325,7 +323,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -346,14 +344,21 @@
       
 
       
-        <p>&emsp;&emsp;现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个<code>test</code>文件夹，在该文件夹下创建一个<code>a.txt</code><br><img src="/2019/02/07/Git常用命令介绍II/bash.jpg"><br>&emsp;&emsp;其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到<a href="http://gnuwin32.sourceforge.net/" target="_blank" rel="noopener">GNU</a>下载相关的package，进行相关配置，就可以像在Linux下运行相关命令。<br>&emsp;&emsp;先通过<code>git init</code>来初始化本地Git仓库，接着编辑<code>a.txt</code><br><img src="/2019/02/07/Git常用命令介绍II/1.jpg"><br>&emsp;&emsp;要在本地仓库提交的话，需要进行先运行<code>git add</code>, 再进行<code>git commit</code>。其中<code>git add</code>是将你当前的仓库内容提交到<strong>暂存区</strong>，<strong>暂存区</strong>的话，你可以把它当作你去从家坐车到学校，那么车就是你从家到学校的暂存区，执行<code>git add</code>相当与你现在坐上车，再<code>git commit</code>之后才能到目的地即工作区<br>完整的命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 你要提交的文件名或文件夹名</span><br><span class="line">git commit -m <span class="string">"提交信息"</span></span><br></pre></td></tr></table></figure></p>
-<img src="/2019/02/07/Git常用命令介绍II/2.jpg">   
-<p>&emsp;&emsp;此时你会发现无法提交，因为git不知道你是谁，就像如果你做的车是动车的话，你得有身份证才能够买票就坐，所以此时git给出相应的提示，让你告诉git你是谁。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">"你的邮箱地址"</span></span><br><span class="line">git config --global user.name <span class="string">"你的名字"</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;登记自己的名字和邮箱之后，可以通过<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></p>
-<p>来查看是否登记成功<br><img src="/2019/02/07/Git常用命令介绍II/3.jpg"><br>&emsp;&emsp;再次进行<code>git commit</code>，可以查看结果：<br><img src="/2019/02/07/Git常用命令介绍II/4.jpg"><br>&emsp;&emsp;此时就提交成功，想想如果有10+个文件要提交，那么你add的时候一定要打那么多的文件名吗？其实可以使用<code>git add --all</code>表示将当前的所有未提交或者被改变了的文件提交到暂存区里面。<br>&emsp;&emsp;这样的话，我们就要知道当前工作区里面是否有改变，就需要使用<code>git status</code>来查看当前目录下的文件是否发生变化。可以增加一个<code>b.txt</code>及修改<code>a.txt</code>里面的内容之后来看<br><img src="/2019/02/07/Git常用命令介绍II/5.jpg"><br>&emsp;&emsp;由此可以看到，git是很智能的，他提示<code>a.txt</code>被修改，<code>b.txt</code>未被跟踪，接着用<code>git add</code> 与 <code>git commit</code>提交<br><img src="/2019/02/07/Git常用命令介绍II/6.jpg"><br>&emsp;&emsp;如果<code>git add</code>和<code>git commit</code>的次数多了，怎么知道之前的commit是什么？，可以使用<br><code>git log</code>来显示每一次的提交<br><img src="/2019/02/07/Git常用命令介绍II/7.jpg"><br>&emsp;&emsp;这个偶尔会有可能中文显示不出来，可以使用下述命令行来显示中文<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;虽然这个命令行很有用，但是每次显示的太臃肿了，信息太多，我们需要一个比较简明的内容，这时候就需要考虑到强大的别名<code>alias</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.logs <span class="string">"log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span></span><br></pre></td></tr></table></figure></p>
-<img src="/2019/02/07/Git常用命令介绍II/8.jpg">   
-<p>&emsp;&emsp;通过<code>logs</code>别名输出简明的git日志。</p>
+        <p>&emsp;&emsp;在使用git的过程中，并不是每一次的add，commit都是你所预期要提交的，总有失手的时候，有可能你在add的时候你多加了个文件，或者commit之后你后悔了，觉得这次的提交不应该包含这么多的东西。Git的设计还是很友好的，让你有后悔的机会去改正。   </p>
+<p>&emsp;&emsp;介绍几个常见的情形：   </p>
+<ol>
+<li>你在一次任务完成后，你要提交代码，使用<code>git add .</code>命令，在未使用commit命令之前，你觉得有一个文件现在提交太早了，那么，你可以使用<code>git rm --cached 文件名</code>， 记得要加<code>--cached</code>，表示是删除暂存区里的，如果直接使用<code>git rm</code>那么会把你本地的文件也删除掉。      <img src="/2019/02/18/Git常用命令介绍III/1.jpg">      </li>
+<li>如果你既add，又commit了, 然后稍加思考，觉得事情不对，觉得刚才的commit message写得有问题， 那么请敲下<code>git commit --amend</code>，然后就会跳到vi模式下，进行编辑你上一次的提交的信息。   <img src="/2019/02/18/Git常用命令介绍III/2.jpg">      
+<img src="/2019/02/18/Git常用命令介绍III/3.jpg">         
+&emsp;&emsp;&emsp;如上图所示，你需要修改的就是那写黄体的字，黄体字下面是你上一次提交的信息。   </li>
+<li>如果你仔细思考，发现上一次提交的是什么鬼，决定全部删掉此次的提交重来，那么你有两个选择：   <ul>
+<li>使用<code>git reset 提交的标识号</code>，先打印出你要回退的提交的标识号，使用<code>git log</code>， 或者上一篇文章里提到的<code>git log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit</code>当然正常人是不会去打这么一大长串的命令，正常的都配成别名<code>alias</code>， 比如，我要回退到下图中标记的提交，那么在控制台输入<code>git reset 96a6128</code>    <img src="/2019/02/18/Git常用命令介绍III/4.jpg">   
+<img src="/2019/02/18/Git常用命令介绍III/5.jpg">   
+你可以通过这个命令回退到任何一个你需要的版本，但是在该提交之后的所有提交后都会没有，不过，当你的终端没有关闭，你可以找到之前的log中你最近提交的标识号，然后再用<code>git reset</code>，如果只是想单纯看看那次的提交是什么，你可以使用<code>git checkout 提交的标识号</code>, 这个命令会保持所有的提交不会被删除，你要回到当前分支的最新提交，就输入<code>git checkout 分支名</code>   <img src="/2019/02/18/Git常用命令介绍III/6.jpg"></li>
+<li>使用<code>git revert 提交的标识号</code>， 这个是git生成一个新的提交，这个的提交与你要回退的提交一模一样，所以在版本控制中，更倾向与使用revert来回退版本，这样可以保留之前的所有信息。<img src="/2019/02/18/Git常用命令介绍III/7.jpg"></li>
+</ul>
+</li>
+</ol>
 
       
     </div>
@@ -384,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/24/Git常用命令介绍1/" rel="next" title="Git常用命令介绍Ⅰ">
-                <i class="fa fa-chevron-left"></i> Git常用命令介绍Ⅰ
+              <a href="/2019/02/07/Git常用命令介绍II/" rel="next" title="Git常用命令介绍Ⅱ">
+                <i class="fa fa-chevron-left"></i> Git常用命令介绍Ⅱ
               </a>
             
           </div>
@@ -393,10 +398,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/18/Git常用命令介绍III/" rel="prev" title="Git常用命令介绍ⅲ">
-                Git常用命令介绍ⅲ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
