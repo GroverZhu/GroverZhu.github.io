@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c87387;
+  background: #2b40c8;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2362,18 +2362,13 @@ pre .javascript .function {
   content: "|";
   padding-left: 10px;
 }
-#gitment-display-button {
-  display: inline-block;
-  padding: 0 15px;
-  color: #0a9caf;
-  cursor: pointer;
-  font-size: 14px;
-  border: 1px solid #0a9caf;
-  border-radius: 4px;
+.gt-header a,
+.gt-comments a,
+.gt-popup a {
+  border-bottom: none;
 }
-#gitment-display-button:hover {
-  color: #fff;
-  background: #0a9caf;
+.gt-container .gt-popup .gt-action.is--active:before {
+  top: 0.7em;
 }
 .page-archive .archive-page-counter {
   position: relative;
