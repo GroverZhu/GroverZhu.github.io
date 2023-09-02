@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在学习了计算机网络，其中有一章为网络代理，什么是网络代理？打个比喻就是相当与两个人在对话，但他们中间隔着一堵墙，导致这两个人的对话出现障碍，但是刚好有个“幽灵”，它可以透过这堵墙，将两个人的聊天信息转发给对方。通过这个“幽灵”这两个人就可以正常聊天，不会受到这个墙的影响。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用DigitalOcean服务器进行网络代理">
+<meta property="og:url" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在学习了计算机网络，其中有一章为网络代理，什么是网络代理？打个比喻就是相当与两个人在对话，但他们中间隔着一堵墙，导致这两个人的对话出现障碍，但是刚好有个“幽灵”，它可以透过这堵墙，将两个人的聊天信息转发给对方。通过这个“幽灵”这两个人就可以正常聊天，不会受到这个墙的影响。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR_2018-07-15_23-06-00.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR1_2018-07-15_23-09-54.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR2_2018-07-15_23-12-38.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR3_2018-07-15_23-13-08.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR4_2018-07-15_23-13-47.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR4_2018-07-15_23-21-46.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR7_2018-07-16_19-16-15.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR8_2018-07-16_19-27-52.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR9_2018-07-16_19-34-46.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR10_2018-07-16_19-35-55.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR11_2018-07-16_19-36-34.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR11_2018-07-16_19-37-15.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR12_2018-07-16_19-40-30.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR13_2018-07-16_19-49-47.png">
+<meta property="og:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR14_2018-07-16_19-50-58.png">
+<meta property="article:published_time" content="2019-03-20T07:28:44.000Z">
+<meta property="article:modified_time" content="2023-09-02T13:41:14.189Z">
+<meta property="article:author" content="GroverZhu">
+<meta property="article:tag" content="Proxy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR_2018-07-15_23-06-00.png">
+
+
+<link rel="canonical" href="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/","path":"2019/03/20/使用DigitalOcean服务器进行网络代理/","title":"使用DigitalOcean服务器进行网络代理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用DigitalOcean服务器进行网络代理 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%86%8CDigitalOcean%E8%B4%A6%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">注册DigitalOcean账号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BBR-%E5%8A%A0%E9%80%9F"><span class="nav-number">2.</span> <span class="nav-text">BBR 加速</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ShadowsocksR-%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">ShadowsocksR 安装</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GroverZhu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GroverZhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用DigitalOcean服务器进行网络代理 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用DigitalOcean服务器进行网络代理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-03-20 15:28:44" itemprop="dateCreated datePublished" datetime="2019-03-20T15:28:44+08:00">2019-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-09-02 21:41:14" itemprop="dateModified" datetime="2023-09-02T21:41:14+08:00">2023-09-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在学习了计算机网络，其中有一章为网络代理，什么是网络代理？打个比喻就是相当与两个人在对话，但他们中间隔着一堵墙，导致这两个人的对话出现障碍，但是刚好有个“幽灵”，它可以透过这堵墙，将两个人的聊天信息转发给对方。通过这个“幽灵”这两个人就可以正常聊天，不会受到这个墙的影响。   </p>
+<span id="more"></span> 
+
+<p>现在你在上网，刚好要访问一个放在远程服务器的网页，此时你的电脑和远程的服务器相当于上述两个聊天的人，但是由于距离太远，相当于一堵墙，此时需要一个“幽灵”来帮助你们之间的信息传输。在此使用DigitalOcean的服务器来实现“幽灵”的功能，也就是网络代理。   </p>
+<h1 id="注册DigitalOcean账号"><a href="#注册DigitalOcean账号" class="headerlink" title="注册DigitalOcean账号"></a>注册DigitalOcean账号</h1><p>首先去<a target="_blank" rel="noopener" href="https://m.do.co/c/ac9819294f16">DigitalOcean</a>上去注册账号,就会送你10美元，现在政策好像改为100刀60天使用权了。登入之后看到如下界面，点击Create   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR_2018-07-15_23-06-00.png" class="">     
+<p>之后选择Droplets      </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR1_2018-07-15_23-09-54.png" class="">      
+<p>接着选择CentOS操作系统，再选择服务器的型号，如果你的网络地址支持IPv6的话，还可以添加上IPv6的地址   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR2_2018-07-15_23-12-38.png" class="">   
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR3_2018-07-15_23-13-08.png" class="">   
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR4_2018-07-15_23-13-47.png" class="">   
+
+<p>在选择好上述选项后点击确认创建，之后DigitalOcean就会给你发送邮件,里面有该服务器的IP地址，用户名和用户密码   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR4_2018-07-15_23-21-46.png" class="">   
+
+<p>在Windows下通过<a target="_blank" rel="noopener" href="https://xshell.en.softonic.com/?ex=DSK-1262.6">Xshell</a>来连接到远程的服务器，新建一个会话，输入服务器IP地址，确认后，在连接成功后就可以输入用户名和密码进行连接   </p>
+   
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR7_2018-07-16_19-16-15.png" class="">   
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR8_2018-07-16_19-27-52.png" class="">   
+
+<p>如果电脑上有安装Git或者Bash Shell可以支持SSH连接的命令行工具的话，可以使用<code>ssh 用户名@IP地址</code>，该教程下，用户名为root，IP地址DigitalOcean提供，在建立连接之后，才会让你输入密码。   </p>
+<h1 id="BBR-加速"><a href="#BBR-加速" class="headerlink" title="BBR 加速"></a>BBR 加速</h1><p>首先进行BBR加速，输入    </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh</span><br></pre></td></tr></table></figure>
+
+<p>如果这个命令运行有问题的话，将这个命令拆成三个命令运行   </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x bbr.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一些Linux系统在最初命令可能会不全，需要下载相应的命令，在这个安装过程中，用到的<code>wget</code>这个命令可能会缺失，如果是RedHat系的Linux系统，使用<code>yum install wget</code>，如果是Debian系，使用<code>apt install wget</code>，本文使用的是CentOS，属于RedHat系的，使用第一个命令行就可以进行安装。   </p>
+</blockquote>
+<p>安装完成后，脚本会提示需要重启 VPS，输入 y 并回车后重启。重启完成后，进入 VPS，验证一下是否成功安装最新内核并开启 TCP BBR，输入以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
+<p>返回值为   </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_available_congestion_control = bbr cubic reno</span><br></pre></td></tr></table></figure>
+<p>输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure>
+<p>返回值为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>返回值有 tcp_bbr 模块即说明 bbr 已启动。注意：并不是所有的 VPS 都会有此返回值，若没有也属正常。    </p>
+</blockquote>
+<h1 id="ShadowsocksR-安装"><a href="#ShadowsocksR-安装" class="headerlink" title="ShadowsocksR 安装"></a>ShadowsocksR 安装</h1><p>输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x shadowsocksR.sh   </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocksR.sh </span><br></pre></td></tr></table></figure>
+
+<p>上面的3行代码要依次复制然后粘贴到ssh里，运行后出现如下界面，可以自己设置密码，否则服务器采用默认的密码   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR9_2018-07-16_19-34-46.png" class="">   
+<p>设置端口   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR10_2018-07-16_19-35-55.png" class="">   
+<p>设置加密协议，一般采用默认值   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR11_2018-07-16_19-36-34.png" class="">   
+<p>设置协议和混淆参数，一般情况下使用默认值   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR11_2018-07-16_19-37-15.png" class="">    
+<p>配置完后，安装ShadowsocksR并显示出当前配置好的参数   </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR12_2018-07-16_19-40-30.png" class="">   
+<p>进入配置文件，将IPv6的参数改为“true”，这样就可以使用IPv6的通道    </p>
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR13_2018-07-16_19-49-47.png" class="">   
+<img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR14_2018-07-16_19-50-58.png" class="">  
+<p>然后输入   </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/shadowsocks status</span><br></pre></td></tr></table></figure>
+<p>可以查看 ShadowsocksR 进程是否已经启动如果显示 running表示已经启动。   </p>
+<p>这样就实现了“幽灵”这一角色的功能，最后只要在自己的客户端上安装ShadowsocksR就可以使用了，这样就完成了网络代理了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Proxy/" rel="tag"># Proxy</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/" rel="prev" title="Git常用命令简介">
+                  <i class="fa fa-angle-left"></i> Git常用命令简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/03/%E6%9C%AC%E7%A7%91%E8%AF%BE%E7%A8%8B/" rel="next" title="本科课程">
+                  本科课程 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GroverZhu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

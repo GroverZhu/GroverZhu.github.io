@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Docker环境配置xv6-riscv 是MIT 6.S081课程使用的一个操作系统，其实验课是通过修改xv6内核来实现相应的功能，对于实验的第一步就是把环境搭建好，运行xv6，本身使用的是Mac，在最开始的时候打算使用Mac原生的环境，但是因为目前在brew的包管理器中，qemu的版本太高，在官网上也提示了会因为qemu的问题导致xv6运行失败，会一直卡在系统的启动那边，遂放弃，转向Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xv6-riscv环境搭建">
+<meta property="og:url" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Docker环境配置xv6-riscv 是MIT 6.S081课程使用的一个操作系统，其实验课是通过修改xv6内核来实现相应的功能，对于实验的第一步就是把环境搭建好，运行xv6，本身使用的是Mac，在最开始的时候打算使用Mac原生的环境，但是因为目前在brew的包管理器中，qemu的版本太高，在官网上也提示了会因为qemu的问题导致xv6运行失败，会一直卡在系统的启动那边，遂放弃，转向Docker">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/docker_images.png">
+<meta property="og:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/docker_run.png">
+<meta property="og:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/envs.png">
+<meta property="og:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/xv6_run.png">
+<meta property="og:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kernel_debug.png">
+<meta property="og:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/layout_split.png">
+<meta property="og:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/user_debug.png">
+<meta property="article:published_time" content="2021-08-17T03:41:38.000Z">
+<meta property="article:modified_time" content="2023-09-02T13:41:07.021Z">
+<meta property="article:author" content="GroverZhu">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/docker_images.png">
+
+
+<link rel="canonical" href="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/","path":"2021/08/17/xv6-riscv环境搭建/","title":"xv6-riscv环境搭建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>xv6-riscv环境搭建 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">Docker环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">简单调试方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">其他可能出现的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">相关资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GroverZhu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GroverZhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="xv6-riscv环境搭建 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          xv6-riscv环境搭建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-08-17 11:41:38" itemprop="dateCreated datePublished" datetime="2021-08-17T11:41:38+08:00">2021-08-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-09-02 21:41:07" itemprop="dateModified" datetime="2023-09-02T21:41:07+08:00">2023-09-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Docker环境配置"><a href="#Docker环境配置" class="headerlink" title="Docker环境配置"></a>Docker环境配置</h1><p>xv6-riscv 是MIT 6.S081课程使用的一个操作系统，其实验课是通过修改xv6内核来实现相应的功能，对于实验的第一步就是把环境搭建好，运行xv6，本身使用的是Mac，在最开始的时候打算使用Mac原生的环境，但是因为目前在brew的包管理器中，qemu的版本太高，在官网上也提示了会因为qemu的问题导致xv6运行失败，会一直卡在系统的启动那边，遂放弃，转向Docker进行环境配置。   </p>
+<span id="more"></span> 
+
+<p>使用的是Ubuntu镜像，使用Docker命令，获取docker命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>docker images</code> 命令可以看到你的系统中现存的docker所有镜像</p>
+<img src="/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/docker_images.png" class="">
+
+
+<p>使用-v命令使得镜像可以共享主机的文件夹，其中{container name}为你要命名该运行容器的名字，{host dir}为主机的文件夹名称，{docker dir} 为Docker容器的文件夹名称</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name=&#123;container name&#125; -v &#123;host dir&#125;:&#123;docker dir&#125; ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>运行该命令后便进入shell控制台上，在后续的docker使用中，可以直接使用 <code>docker start &#123;container name&#125;</code>或者使用如下命令<code>docker ps -a</code>查看所有Docker镜像，然后将上述的{container name} 换成 {container id} 再通过 <code>docker exec -it &#123;container id&#125; /bin/bash</code> 进入Docker容器中，步骤如下图所示：</p>
+<img src="/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/docker_run.png" class="">
+
+<p>运行如下命令，安装编译链</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install gcc-riscv64-unknown-elf git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu</span><br></pre></td></tr></table></figure>
+
+<p>检查环境是否安装成功，运行<code>riscv64-unknown-elf-gcc --version</code> 与 <code>qemu-system-riscv64 --version</code>，切记在Fall 2020的课程中，qemu的版本不能太高，否则会卡死，这个bug目前还没解决，至此所有的依赖环境都安装完毕</p>
+<img src="/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/envs.png" class="">
+
+<p>使用<code>git clone git://g.csail.mit.edu/xv6-labs-2020</code> 将实验代码拷贝下来，进入xv6代码目录中，切换分支<code>git checkout util</code>分支，键入 <code>make qemu</code>，出现下图所示的的内容，则运行成功，若要退出系统，按住键盘 ctrl+a 组合建，然后放开，再按x。</p>
+<img src="/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/xv6_run.png" class="">
+
+
+<h1 id="简单调试方法"><a href="#简单调试方法" class="headerlink" title="简单调试方法"></a>简单调试方法</h1><p>简单查看xv6的目录结构，主要的文件夹是</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>kernel<br>mkfs<br>user</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>其中kernel文件夹就是存放内核代码，你要为xv6系统添加新功能就在这个文件夹下修改，user就是存放用户态的代码，会进行系统调用之类的操作。</p>
+<p>在写代码中，推荐使用VS Code编辑器，调试的话，使用gdb，这个gdb也是接触这个课后才使用，记录下常用命令。</p>
+<p>对于调试输入<code>make qemu-gdb</code> 在同一文件夹下另开一个窗口输入 <code>gdb-multiarch -q kernel/kernel</code>，在VS Code中有终端拆分的功能，比较方便。</p>
+<img src="/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/kernel_debug.png" class="">
+
+<p>对于在内核的代码，可以直接在main函数上打断点，可以看见是在kernel&#x2F;main.c文件中，这样看很别扭，无法直观看到现在的代码执行到哪，别担心，gdb提供了简单的可视化功能，输入<code>layout split</code></p>
+<img src="/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/layout_split.png" class="">
+
+<p>上半部分显示的为源代码，下半部分显示的是每一条指令，在调试中next是逐行运行，nexti是逐指令运行，step是进入改行代码，stepi类似，finish便是结束在该函数中运行，b是进行打断点，可以是行号或函数名，c是运行到下一个断点，大致的调试过程表示这样。</p>
+<p>要调试user中的代码，则需要进行新的步骤，要定位到运行的文件，查看user文件夹中源文件，可以看见所有的文件都有一个main函数，需要进行file user&#x2F;_ls，这里以ls函数为例，xv6中将所有的shell命令都编译为前带下划线的二进制文件，甚于步骤与上述的一致，详细见下图序号。</p>
+<img src="/2021/08/17/xv6-riscv%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/user_debug.png" class="">
+
+
+<h1 id="其他可能出现的问题"><a href="#其他可能出现的问题" class="headerlink" title="其他可能出现的问题"></a>其他可能出现的问题</h1><ul>
+<li><p>python 环境问题，因为是Python3 需要添加软链接<code>ln -s /usr/bin/python3 /usr/bin/python</code></p>
+</li>
+<li><p>trap 课程中stepi不能用，需要对.gdbinit.tmpl-riscv 增加 set riscv use-compressed-breakpoints yes，然后<code>p/x $stvec</code>会显示一个地址，在该地址处打断点 接着进行stepi即可</p>
+</li>
+<li><p>使用的bash shell配置</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">~/.bashrc: executed by bash(1) <span class="keyword">for</span> non-login shells.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">see /usr/share/doc/bash/examples/startup-files (<span class="keyword">in</span> the package bash-doc)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">for</span> examples</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">If not running interactively, don<span class="string">&#x27;t do anything</span></span></span><br><span class="line">[ -z &quot;$PS1&quot; ] &amp;&amp; return</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">don&#x27;</span>t put duplicate lines <span class="keyword">in</span> the <span class="built_in">history</span>. See bash(1) <span class="keyword">for</span> more options</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">... or force ignoredups and ignorespace</span></span><br><span class="line">HISTCONTROL=ignoredups:ignorespace</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">append to the <span class="built_in">history</span> file, don<span class="string">&#x27;t overwrite it</span></span></span><br><span class="line">shopt -s histappend</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">for setting history length see HISTSIZE and HISTFILESIZE in bash(1)</span></span></span><br><span class="line">HISTSIZE=1000</span><br><span class="line">HISTFILESIZE=2000</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">check the window size after each command and, if necessary,</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">update the values of LINES and COLUMNS.</span></span></span><br><span class="line">shopt -s checkwinsize</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">make less more friendly for non-text input files, see lesspipe(1)</span></span></span><br><span class="line">[ -x /usr/bin/lesspipe ] &amp;&amp; eval &quot;$(SHELL=/bin/sh lesspipe)&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">set variable identifying the chroot you work in (used in the prompt below)</span></span></span><br><span class="line">if [ -z &quot;$debian_chroot&quot; ] &amp;&amp; [ -r /etc/debian_chroot ]; then</span><br><span class="line">    debian_chroot=$(cat /etc/debian_chroot)</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">set a fancy prompt (non-color, unless we know we &quot;want&quot; color)</span></span></span><br><span class="line">case &quot;$TERM&quot; in</span><br><span class="line">    xterm-color) color_prompt=yes;;</span><br><span class="line">esac</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">uncomment for a colored prompt, if the terminal has the capability; turned</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">off by default to not distract the user: the focus in a terminal window</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">should be on the output of commands, not on the prompt</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">force_color_prompt=yes</span></span></span><br><span class="line"></span><br><span class="line">if [ -n &quot;$force_color_prompt&quot; ]; then</span><br><span class="line">    if [ -x /usr/bin/tput ] &amp;&amp; tput setaf 1 &gt;&amp;/dev/null; then</span><br><span class="line">        # We have color support; assume it&#x27;s compliant with Ecma-48</span><br><span class="line">        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such</span><br><span class="line">        # a case would tend to support setf rather than setaf.)</span><br><span class="line">        color_prompt=yes</span><br><span class="line">    else</span><br><span class="line">        color_prompt=</span><br><span class="line">    fi</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ &quot;$color_prompt&quot; = yes ]; then</span><br><span class="line">    PS1=&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#x27;</span><br><span class="line">else</span><br><span class="line">    PS1=&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h:\w\$ &#x27;</span><br><span class="line">fi</span><br><span class="line">unset color_prompt force_color_prompt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">If this is an xterm set the title to user@host:dir</span></span></span><br><span class="line">case &quot;$TERM&quot; in</span><br><span class="line">xterm*|rxvt*)</span><br><span class="line">    PS1=&quot;\[\e]0;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h: \w\a\]$PS1&quot;</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">enable color support of ls and also add handy aliases</span></span></span><br><span class="line">if [ -x /usr/bin/dircolors ]; then</span><br><span class="line">    test -r ~/.dircolors &amp;&amp; eval &quot;$(dircolors -b ~/.dircolors)&quot; || eval &quot;$(dircolors -b)&quot;</span><br><span class="line">    alias ls=&#x27;ls --color=auto&#x27;</span><br><span class="line">    #alias dir=&#x27;dir --color=auto&#x27;</span><br><span class="line">    #alias vdir=&#x27;vdir --color=auto&#x27;</span><br><span class="line"></span><br><span class="line">    alias grep=&#x27;grep --color=auto&#x27;</span><br><span class="line">    alias fgrep=&#x27;fgrep --color=auto&#x27;</span><br><span class="line">    alias egrep=&#x27;egrep --color=auto&#x27;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">some more ls aliases</span></span></span><br><span class="line">alias ll=&#x27;ls -alF&#x27;</span><br><span class="line">alias la=&#x27;ls -A&#x27;</span><br><span class="line">alias l=&#x27;ls -CF&#x27;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Alias definitions.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">You may want to put all your additions into a separate file like</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">~/.bash_aliases, instead of adding them here directly.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">See /usr/share/doc/bash-doc/examples in the bash-doc package.</span></span></span><br><span class="line"></span><br><span class="line">if [ -f ~/.bash_aliases ]; then</span><br><span class="line">    . ~/.bash_aliases</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">enable programmable completion features (you don&#x27;</span>t need to <span class="built_in">enable</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">this, <span class="keyword">if</span> it<span class="string">&#x27;s already enabled in /etc/bash.bashrc and /etc/profile</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">sources /etc/bash.bashrc).</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">if [ -f /etc/bash_completion ] &amp;&amp; ! shopt -oq posix; then</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">   . /etc/bash_completion</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">fi</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">git branch</span></span></span><br><span class="line">function git_branch &#123;</span><br><span class="line">  branch=&quot;`git branch 2&gt;/dev/null | grep &quot;^\*&quot; | sed -e &quot;s/^\*\ //&quot;`&quot;</span><br><span class="line">  if [ &quot;$&#123;branch&#125;&quot; != &quot;&quot; ];then</span><br><span class="line">      if [ &quot;$&#123;branch&#125;&quot; = &quot;(no branch)&quot; ];then</span><br><span class="line">          branch=&quot;(`git rev-parse --short HEAD`...)&quot;</span><br><span class="line">      fi</span><br><span class="line">      echo &quot; ($branch)&quot;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">终端显示路径</span></span></span><br><span class="line">export PS1=&#x27;\u@\[\033[01;36m\]\W\[\033[01;32m\]$(git_branch)\[\033[00m\]\$ &#x27;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://b23.tv/RHDDif">B站课程</a>，中英文字幕 </li>
+<li><a target="_blank" rel="noopener" href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/">课程翻译 网页版</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/huihongxiao/MIT6.S081">课程翻译 GitHub</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OS/" rel="tag"># OS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/03/%E6%9C%AC%E7%A7%91%E8%AF%BE%E7%A8%8B/" rel="prev" title="本科课程">
+                  <i class="fa fa-angle-left"></i> 本科课程
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GroverZhu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

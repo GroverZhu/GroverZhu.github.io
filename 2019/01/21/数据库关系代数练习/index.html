@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="现在有关系模式如下所示： 1234Department(dNo,dName,officeRoom,homePage)Student(sNo,sName,sex,age,dNo)Course(cNo,cName,cPNo,credit,dNo)SC(sNo,cNo,score,recorddate)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库关系代数练习">
+<meta property="og:url" content="http://example.com/2019/01/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="现在有关系模式如下所示： 1234Department(dNo,dName,officeRoom,homePage)Student(sNo,sName,sex,age,dNo)Course(cNo,cName,cPNo,credit,dNo)SC(sNo,cNo,score,recorddate)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-01-21T05:19:50.000Z">
+<meta property="article:modified_time" content="2023-09-02T13:41:23.521Z">
+<meta property="article:author" content="GroverZhu">
+<meta property="article:tag" content="数据库关系代数">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2019/01/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E7%BB%83%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2019/01/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E7%BB%83%E4%B9%A0/","path":"2019/01/21/数据库关系代数练习/","title":"数据库关系代数练习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库关系代数练习 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">一、基本查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.</span> <span class="nav-text">二、连接查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%BB%BC%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.</span> <span class="nav-text">三、综合查询</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GroverZhu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E7%BB%83%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GroverZhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据库关系代数练习 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库关系代数练习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-01-21 13:19:50" itemprop="dateCreated datePublished" datetime="2019-01-21T13:19:50+08:00">2019-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-09-02 21:41:23" itemprop="dateModified" datetime="2023-09-02T21:41:23+08:00">2023-09-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>现在有关系模式如下所示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Department(dNo,dName,officeRoom,homePage)</span><br><span class="line">Student(sNo,sName,sex,age,dNo)</span><br><span class="line">Course(cNo,cName,cPNo,credit,dNo)</span><br><span class="line">SC(sNo,cNo,score,recorddate)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span> 
+
+<h3 id="一、基本查询"><a href="#一、基本查询" class="headerlink" title="一、基本查询"></a><strong>一、基本查询</strong></h3><ol>
+<li>查询所有年龄小于18岁的男生姓名<br>$$\pi_{sname}(\sigma_{age&lt;18\bigwedge sex&#x3D;’man’}(student))$$    </li>
+<li>查询所有学分大于3的课程名称<br>$$\pi_{cname}(\sigma_{credit&gt;3}(course))$$</li>
+<li>查询所有没有先修课的课程名称<br>$$\pi_{cname}(\sigma_{cPNo\  is\  null}(course))$$</li>
+</ol>
+<h3 id="二、连接查询"><a href="#二、连接查询" class="headerlink" title="二、连接查询"></a><strong>二、连接查询</strong></h3><ol>
+<li>查询“信息学院”所有学生姓名<br>$$\pi_{sname}((\sigma_{dname&#x3D;’\text{信息学院}’}(department))\Join student)$$      </li>
+<li>查询所有具有不及格记录的学生姓名<br>$$\pi_{sname}((\sigma_{score&lt;60}(SC))\Join student)$$   </li>
+<li>查询“信息学院”所有年龄小于18岁的女生姓名<br>$$\pi_{sname}((\sigma_{age&lt;18\bigwedge sex&#x3D;’female’}(student))\Join (\sigma_{dname&#x3D;’\text{信息学院}’}(department)))$$   </li>
+<li>查询所有选修了“数据库”课程的学生姓名<br>$$\pi_{sname}(\pi_{cno}(\pi_{cname&#x3D;’\text{数据库}’}(course))\Join SC \Join student)$$   </li>
+<li>查询“信息学院”所有选修了“科学技术简史”课程的学生姓名<br>$$\pi_{sname}(\pi_{sno}(\sigma_{cname&#x3D;’\text{科学技术简史}’}(course))\Join SC\Join student \Join(\pi_{cname&#x3D;’\text{信息学院}’}(department)))$$   </li>
+<li>查询选修了“数据结构”课程并且不及格的学生姓名<br>$$\pi_{sname}(\pi_{cno}(\sigma_{cname&#x3D;’\text{数据结构}’}(course))\Join (\sigma_{credit&lt;60}(SC))\Join student)$$      </li>
+<li>查询“计算机学院”选修了“概率论”课程且成绩大于等于80分的学生姓名<br>$$\pi_{sname}((\sigma_{dname&#x3D;’\text{计算机学院}’}\Join \pi_{cno}(\sigma_{cname&#x3D;’\text{概率论}’}(course))\Join (\sigma_{score\geq 80}(SC))\Join student)$$   </li>
+<li>查询“文学院”开设的所有学分大于等于3的课程名称<br>$$\pi_{cname}((\sigma_{dname&#x3D;’\text{文学院}’}(department))\Join \sigma_{credit \geq 3}(course)))$$   </li>
+<li>查询“信息学院”所有选修了“数据库”课程并且不及格的学生姓名及分数<br>$$\pi_{sname,score}((\sigma_{dname&#x3D;’\text{信息学院}’}(department))\Join (\pi_{cno}(\sigma_{cname&#x3D;’\text{数据库}’}(course)))\Join (\sigma_{score&lt;60}(SC))\Join student)$$   </li>
+<li>查询“王强”同学所选修的全部课程名称、学分以及开课学院。<br>$$\pi_{cname,credit,dname}(\pi_{cno}(\sigma_{sname&#x3D;’\text{王强}’}(student)\Join SC)\Join course \Join department)$$</li>
+</ol>
+<h3 id="三、综合查询"><a href="#三、综合查询" class="headerlink" title="三、综合查询"></a><strong>三、综合查询</strong></h3><ol>
+<li>查询选修了“数据库”或者选修了“算法”课程的学生姓名<br>$$\pi_{sname}(\sigma_{cname&#x3D;’\text{数据库}’\bigvee cname&#x3D;’\text{算法}’}(course))\Join SC \Join student)$$   </li>
+<li>查询选修了“数据库”并且选修了“算法”课程的学生姓名<br>$$\pi_{sname((\pi_{sno,cno}(SC)\div(\sigma_{cname&#x3D;’\text{数据库}’}\bigwedge cname&#x3D;’\text{算法}’}(course))\Join student)$$   </li>
+<li>查询选修了“数据库”但没有选修“算法”课程的学生姓名<br>$$\pi_{sname}((\pi_{sno}(\sigma_{cname&#x3D;’\text{数据库}’}(course))\Join SC)-(\pi_{sno}(\sigma_{cname&#x3D;’\text{算法}’}(course))\Join SC))\Join student)$$   </li>
+<li>查询没有选修“算法”课程的学生姓名<br>$$\pi_{sname}(student)-\pi_{sname}(\sigma_{cname&#x3D;’\text{算法}’}(course)\Join SC \Join student)$$  </li>
+<li>查询仅仅选修了“算法”一门课程的学生姓名<br>$$\pi_{sname}((\pi_{sno}(SC)-\pi_{sno}(\pi_{cname&lt;&gt;’\text{算法}’}(course)\Join SC))\Join student)$$   </li>
+<li>查询选修了“信息学院”开设的所有课程的学生姓名<br>$$\pi_{cno,sname}(SC\Join student)\div\pi_{cno}((\sigma_{dname&#x3D;’\text{信息学院}’}(department))\Join course)$$   </li>
+<li>查询选修了所有学分大于3课程的学生姓名<br>$$\pi_{sname}(\pi_{cno,sno}(SC)\div\pi_{cno}(\sigma_{credit&gt;3}(course))\Join student)$$   </li>
+<li>查询“数据库”课程所有不及格学生姓名及所在学院<br>$$\pi_{sname,dname}((\pi_{sno}(\sigma_{cname&#x3D;’\text{数据库}’}(course)\Join \sigma_{score&lt;60}(SC))\Join student\Join department))$$   </li>
+<li>查询“数据库”先修课的课程名称<br>$$\pi_{cname}(\pi_{cpno}(\sigma{cname&#x3D;’\text{数据库}’}(course \ \  AS\ \  C1)){\mathop \Join\limits_{C1.cpno&#x3D;C2.cno}}(course\ \  AS\ \  C2))$$   </li>
+<li>查询先修课为“数据库”的课程名称<br>$$\pi_{cname}(\pi_{cpno}(\sigma{cname&#x3D;’\text{数据库}’}(course \ \  AS\ \  C1)){\mathop \Join\limits_{C1.cno&#x3D;C2.cpno}}(course\ \  AS\ \  C2))$$</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0/" rel="tag"># 数据库关系代数</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/01/22/SQL%E7%BB%83%E4%B9%A0/" rel="next" title="SQL练习">
+                  SQL练习 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GroverZhu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

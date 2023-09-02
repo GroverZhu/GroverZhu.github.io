@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Git 简介关于Git，对于程序员肯定不陌生，全球最大开源平台 GitHub 便是基于 Git 创建，Git 与 GitHub 的关系，从名字上就可以看出 GitHub 就是基于 Git 的一个仓库( hub )， Git 是一个分布式版本控制软件，而 GitHub 就是基于该版本控制软件而创建的一个网站。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git常用命令简介">
+<meta property="og:url" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Git 简介关于Git，对于程序员肯定不陌生，全球最大开源平台 GitHub 便是基于 Git 创建，Git 与 GitHub 的关系，从名字上就可以看出 GitHub 就是基于 Git 的一个仓库( hub )， Git 是一个分布式版本控制软件，而 GitHub 就是基于该版本控制软件而创建的一个网站。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/git_bash.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/help.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone_help.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone_browser.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone_project.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/project.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/init.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/dir.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/bash.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/context_editor.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/user_config.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/user_config_verify.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/commit.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/status.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/commit_2nd.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/log.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/log_alias.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/tag.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/cached.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/amend.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/amend_modify.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/reset.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/logs.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/checkout.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/revert.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branch.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branches.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branch_list.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branch_delete.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/conflict.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/conflict_solved.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/ssh_key.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/ssh_key_file.jpg">
+<meta property="og:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/Git.png">
+<meta property="article:published_time" content="2019-01-23T13:01:03.000Z">
+<meta property="article:modified_time" content="2023-09-02T13:38:48.269Z">
+<meta property="article:author" content="GroverZhu">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/git_bash.jpg">
+
+
+<link rel="canonical" href="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/","path":"2019/01/23/Git常用命令简介/","title":"Git常用命令简介"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git常用命令简介 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Git 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%B8%B8%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">Git 常用本地命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gitignore-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">.gitignore 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gitignore-%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-number">3.1.</span> <span class="nav-text">.gitignore 中特殊符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitignore-%E4%BE%8B%E5%AD%90"><span class="nav-number">3.2.</span> <span class="nav-text">.gitignore 例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E9%83%A8%E5%88%86%E6%92%A4%E9%94%80%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Git 部分撤销操作命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">Git 分支与远程命令</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GroverZhu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GroverZhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git常用命令简介 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git常用命令简介
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-01-23 21:01:03" itemprop="dateCreated datePublished" datetime="2019-01-23T21:01:03+08:00">2019-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-09-02 21:38:48" itemprop="dateModified" datetime="2023-09-02T21:38:48+08:00">2023-09-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Git-简介"><a href="#Git-简介" class="headerlink" title="Git 简介"></a>Git 简介</h1><p>关于Git，对于程序员肯定不陌生，全球最大开源平台 <a target="_blank" rel="noopener" href="https://github.com/">GitHub</a> 便是基于 Git 创建，Git 与 GitHub 的关系，从名字上就可以看出 GitHub 就是基于 Git 的一个仓库( hub )， Git 是一个<strong>分布式版本控制软件</strong>，而 GitHub 就是基于该版本控制软件而创建的一个网站。   </p>
+<span id="more"></span> 
+
+<p>有些人会觉得 Git 与 GitHub 其实差不多，但实际上，如果你需要往 GitHub 这个网站上传你的代码，那么你需要通过 Git 分布式版本控制软件来上传你的代码，但是你要查找别人的代码，那么你就需要从 GitHub 这个网站上搜索，对于网站的操作，并不会很麻烦，有图形化界面，所以我们的目标应该是先放在对Git这个分布式版本控制软件的使用。   </p>
+<p>所以在上面讲了那么多次Git是分布式版本控制软件，那么什么叫<strong>分布式</strong>，什么又叫<strong>版本控制软件</strong>。对于<strong>分布式</strong>，你可以理解为“鸡蛋不能放在同一个筐里”，<strong>版本控制</strong>可以理解为，你导师要你写一份论文，但是每次你提交论文给你的导师，他都会提一些修改，你为了避免改后的论文比之前的还要糟糕，你把每次提交的论文都保存下来，然后你的论文就变成下面这样的形式：   </p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>“paper1.docx”<br>“paper2.docx”<br>“paper3.docx”<br>…   </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>那么，如果你使用了版本控制软件之后，你就可以在每次修改之后把每次修改的内容写一个概要，但是你的论文文件就只有一个文件，就不会像前面那样会产生无数个文件，到最后连自己都不知道哪个是最新的了，这就是版本控制。   </p>
+<p>那么你的文件就相当于那些“鸡蛋”，分布式就是你把这些“鸡蛋”放在不同的“篮筐”里，Git就是 <strong>“鸡蛋”+“篮筐”</strong>   </p>
+<p>既然Git是个软件，就先到<a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a>官网针对你的操作系统安装对应的版本，博主是在Windows10下安装，其他平台安装可参考其他网站，在Windows下安装，可以一键next，安装后，右击鼠标会出现<code>Git Bash Here</code>和<code>Git GUI Here</code> , 如下图所示：</p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/git_bash.jpg" class="">   
+
+<p>出现上图的图标，那么恭喜骚年，你安装成功了，后面的话，就会对Git的命令行使用进行解释   </p>
+<p>也许，你会觉得我在逗你玩，那不是有GUI吗？干嘛不用GUI却去用了命令行，是不是自讨苦吃啊！但是我说你不觉得用命令行整个逼格就高了吗？    </p>
+<p>当然GUI确实入门比较快，如果你很排斥命令行的话，可自行搜索<code>Tortoise Git</code>，这个我没有用过,但是身边有人用过，反映这个比Git自带的GUI友好些，如果你想更熟练地使用Git，那我还是建议你使用命令行，毕竟Git最初的设计就是在命令行下使用的。在后续的文章我只会介绍Git的命令行操作</p>
+<p>对于Git的使用，现如今大部分IDE都提供相应的插件，使得Git的使用越来越方便，但通过命令行操作能够更深入理解Git的工作机制，，今天就来介绍一些常用的Git命令。   </p>
+<p>对于命令行的使用，都会提供一个用户手册，不过不出意外的话一般都会提供英文版本的，英语好的话就可以直接阅读，如果英语不太好的话，也可以去网上查询中文的使用指南。   </p>
+<h1 id="Git-常用本地命令"><a href="#Git-常用本地命令" class="headerlink" title="Git 常用本地命令"></a>Git 常用本地命令</h1><p>现在先介绍Git的第一个命令   </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<p>在终端敲好该命令后，按下回车，你会看到如下的显示：   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/help.jpg" class="">
+
+<p>可以看到help界面中把Git的操作分为5类，后续的文章会根据这个顺序来解释这些命令。可以看到这个help页面中，对于Git命令的分类为：   </p>
+<blockquote>
+<blockquote>
+<blockquote>
+<ol>
+<li>开始一个工作空间</li>
+<li>对当前的工作空间进行操作</li>
+<li>检查历史记录和状态</li>
+<li>对历史记录的操作</li>
+<li>合作</li>
+</ol>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>上述这些操作也是使用Git的一般过程：<strong>从创建一个工作空间，对该工作空间进行的操作，操作的过程中会对历史记录进行操作，共享该工作空间与他人合作。</strong>   </p>
+<p>现在继续介绍<code>git help</code>命令，如果你忘了某个命令的具体使用，比如clone这个命令，那么，你可以在控制台上输入<code>git help clone</code></p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone_help.jpg" class="">
+<p>之后你的浏览器就会显示出给命令的详细帮助手册(不需要联网，所有的帮助文档都在你的本地硬盘里)，然而很可惜，还是英文的。</p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone_browser.jpg" class="">
+<p>还是像上文说的那样，这种官方帮助文档，你可以不使用，但你要知道有这么一种东西，万一哪天情况很急，你又忘记了某一个命令的是有而且还没有其他的途径来获取帮助，这时候就可以通过官方提供的文档来解决你的问题。   </p>
+<p>接着我们来介绍一下开启一个工作空间的两种方法<br><strong>从已有的项目直接复制一份过来，在此基础上进行后续的工作</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> URL路径</span><br></pre></td></tr></table></figure>
+
+<p>比如在GitHub上要复制一个项目， 先该项目的主界面下，找到<strong>Clone or download</strong>按钮，然后复制提供的路径，对于开源的项目，提供的<em>HTTPS</em>还是<em>SSH</em>连接没有什么区别，对于私有的项目会有些许区别，在HTTPS的连接中，如果是私有的话，在对项目的提交过程中会提示你输入用户名和密码，使用SSH连接，则需要配置相应的SSH Key才可以进行访问。clone 操作如下图所示：</p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone.jpg" class="">
+<p>在终端输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/GroverZhu/JSP-Servlet.git</span><br></pre></td></tr></table></figure>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/clone_project.jpg" class="">
+<p>之后就会在你的终端的目录下复制下该项目</p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/project.jpg" class="">
+<p>这个命令用的好，代码写得少。身边的人，Git用的不好，但这个命令记得可清楚了，一天完成n个项目不再是梦，别问怎么写的，问就是<code>git clone</code>。   </p>
+<p><strong>从零开始创建一个工作空间</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>选择一个目录，可以使用bash命令创建一个文件夹<code>mkdir tmp</code>，然后进入该文件夹<code>cd tmp/</code>,再输入<code>git init</code></p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/init.jpg" class="">
+<p><em>init</em>就是<em>initial</em>的缩写，即初始化，之后你可以进入文件夹<em>tmp</em>中查看，会有一个隐藏文件夹*.git*，这样就初始化好了，你就拥有一个Git工作空间了</p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/dir.jpg" class="">
+
+<p>此次对Git命令的介绍就到此，Git的掌握一定要通过自己亲手操作，Git是一个工具，工具的掌握就是熟能生巧。</p>
+<p>现在就来介绍Git在本地分支的操作，首先通过Bash命令来创建一个<code>test</code>文件夹，在该文件夹下创建一个<code>a.txt</code>   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/bash.jpg" class="">   
+
+<p>其实Git在Windows下的命令行终端里面是简化的Bash Shell，如果你对Linux下的Bash Shell 比较熟悉的话，你可以通过该终端进行相关的操作，不过一些命令还是不可以使用的，你可以到<a target="_blank" rel="noopener" href="http://gnuwin32.sourceforge.net/">GNU</a>下载相关的package，进行相关配置，就可以像在Linux下运行相关命令。   </p>
+<p>先通过<code>git init</code>来初始化本地Git仓库，接着编辑<code>a.txt</code>      </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/context_editor.jpg" class="">   
+
+<p>要在本地仓库提交的话，需要进行先运行<code>git add</code>, 再进行<code>git commit</code>。其中<code>git add</code>是将你当前的仓库内容提交到<strong>暂存区</strong>，<strong>暂存区</strong>的话，你可以把它当作你去从家坐车到学校，那么车就是你从家到学校的暂存区，执行<code>git add</code>相当与你现在坐上车，再<code>git commit</code>之后才能到目的地即工作区<br>完整的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 你要提交的文件名或文件夹名</span><br><span class="line">git commit -m <span class="string">&quot;提交信息&quot;</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/user_config.jpg" class="">  
+
+<p>此时你会发现无法提交，因为Git不知道你是谁，就像如果你座的车是动车的话，你得有身份证才能够买票就座，所以此时Git给出相应的提示，让你告诉Git你是谁。   </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;你的邮箱地址&quot;</span></span><br><span class="line">git config --global user.name <span class="string">&quot;你的名字&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>登记自己的名字和邮箱之后，可以通过   </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+<p>来查看是否登记成功   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/user_config_verify.jpg" class="">   
+<p>再次进行<code>git commit</code>，可以查看结果：   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/commit.jpg" class="">   
+
+<p>此时就提交成功，想想如果有10+个文件要提交，那么你add的时候一定要打那么多的文件名吗？其实可以使用<code>git add --all</code>表示将当前的所有未提交或者被改变了的文件提交到暂存区里面。   </p>
+<p>这样的话，我们就要知道当前工作区里面是否有改变，就需要使用<code>git status</code>来查看当前目录下的文件是否发生变化。可以增加一个<code>b.txt</code>及修改<code>a.txt</code>里面的内容之后来看   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/status.jpg" class="">   
+<p>由此可以看到，git是很智能的，他提示<code>a.txt</code>被修改，<code>b.txt</code>未被跟踪，接着用<code>git add</code> 与 <code>git commit</code>提交    </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/commit_2nd.jpg" class="">   
+<p>如果<code>git add</code>和<code>git commit</code>的次数多了，怎么知道之前的commit是什么？，可以使用<br><code>git log</code>来显示每一次的提交</p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/log.jpg" class="">
+<p>这个偶尔会有可能中文显示不出来，可以使用下述命令行来显示中文</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>虽然这个命令行很有用，但是每次显示的太臃肿了，信息太多，我们需要一个比较简明的内容，这时候就需要考虑到强大的别名<code>alias</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.logs <span class="string">&quot;log --color --graph --pretty=format:&#x27;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#x27; --abbrev-commit&quot;</span>  </span><br></pre></td></tr></table></figure>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/log_alias.jpg" class="">   
+<p>通过<code>logs</code>别名输出简明的Git日志。<br>Git还提供打标签的功能，当你的项目完成到一定程度的时候，可以打个标签标记一下，使用<code>git tag 标签名</code>，这样就算是打上一个标签了，可以使用<code>git tag</code>，查看所有的标签，要切换到某一个标签的话，可以使用<code>git checkout 标签名</code>。   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/tag.jpg" class="">   
+
+<h1 id="gitignore-配置"><a href="#gitignore-配置" class="headerlink" title=".gitignore 配置"></a>.gitignore 配置</h1><p>在使用Git进行版本管理，有时候一些文件不需要提交，但使用<code>git status</code> 命令后会出现未提示的文件，我们可以用<code>.gitignore</code> 文件对不必要的文件进行屏蔽。   </p>
+<p>在Windows系统下进行配置<code>.gitignore</code>文件，确实有点难受。首先Windows操作系统下，直接右击鼠标无法新建一个不带文件名的文件，因此我们打开Git命令行，输入<code>touch .gitignore</code>命令你就可以在该文件夹下找到<code>.gitignore</code>文件(其实这是Bash shell下创建一个文件的命令，在介绍<a target="_blank" rel="noopener" href="https://groverzhu.github.io/2019/02/07/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8DII/">Git命令</a>的一篇文章中说过，Git的命令行模式下是一种shell，不信你可以在你的Git命令行模式下输入bash shell的命令，它是可以运行，只不过命令没有那么全而已)，建议用<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vscode</a>或者其他文本编辑器编辑该文件。下面介绍<code>.gitignore</code> 文件的编写：   </p>
+<h2 id="gitignore-中特殊符号"><a href="#gitignore-中特殊符号" class="headerlink" title=".gitignore 中特殊符号"></a>.gitignore 中特殊符号</h2><ol>
+<li>“#”相当于程序的注释的标记，“#”后的内容都会被忽略掉；同时空行也会被忽略掉；   </li>
+<li>“&#x2F;”表示目录，这个实际上是Linux下的目录表示，其中有绝对路径和相对路径的写法，绝对路径的意思是从一个头开始而这个头的表示为<code>/</code>，例如在Windows下你的C盘里有一个Windows目录，那么表示该目录为<code>/c/Windows</code>；相对的路径的意思为从当前目录开始表示为<code>./</code>开头，如果你已经在C盘，则上面目录的表示为<code>./Windows</code>；   </li>
+<li>“*”为通配符，表示可以匹配任意多个字符；</li>
+<li>“?”表示匹配任意单个字符；</li>
+<li>“[]”表示单个字符的匹配列表；</li>
+<li>“!”表示不忽略匹配到的文件或目录。</li>
+</ol>
+<h2 id="gitignore-例子"><a href="#gitignore-例子" class="headerlink" title=".gitignore 例子"></a>.gitignore 例子</h2><ol>
+<li>忽略指定的文件，比如要忽略readme.md，那么直接在<code>.gitignore</code>文件中编辑<code>readme.md</code>并保存，如要忽略所有后缀为.md的文件可以在<code>.gitignore</code>中编辑为<code>*.md</code>， <code>*</code>号出现表示在<code>.md</code>之前可以出现任意个字符(当文件名中有空格，要用<code>&#39;&#39;</code> 包含起来如<code> &#39;Program Files&#39;/</code>，这是Windows下的操作，一般的类Unix系统文件名都不允许有空格)</li>
+<li>忽略指定文件夹，比如要忽略文件夹bin，则在<code>.gitignore</code>文件编辑<code>bin/</code>,如果是所有文件夹下都要有bin文件夹，并要忽略该文件可编写为<code>*/bin/</code>;</li>
+<li>如果一个文件夹中你只需要其中的一两个，那么可以先忽略该文件夹，再用“!”提出需要的文件，例如你bin文件夹下，你只需要其中的readme.md文件，但它有十来个文件，此时<code>.gitignore</code>文件可编辑为 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/</span><br><span class="line">!bin/readme.md</span><br></pre></td></tr></table></figure>
+&emsp;&emsp;这样<code>.gitignore</code>文件就配置好了，不觉得很麻烦吗？其实早有人就提供相应的’.gitignore’配置文件，找到你要的部分，就可以直接拿来用，可<a target="_blank" rel="noopener" href="https://github.com/github/gitignore">点击查看</a>。在开启一个工程的时候，一定要去配置一下<code>.gitignore </code>文件，一个项目里面有部分文件是跟本地配置相关的，不应该添加到Git的管理中，不同的电脑，本地配置也会不一致，每个人都提交到Git中就会造成混乱。</li>
+</ol>
+<h1 id="Git-部分撤销操作命令"><a href="#Git-部分撤销操作命令" class="headerlink" title="Git 部分撤销操作命令"></a>Git 部分撤销操作命令</h1><p>在使用git的过程中，并不是每一次的add，commit都是你所预期要提交的，总有失手的时候，有可能你在add的时候你多加了个文件，或者commit之后你后悔了，觉得这次的提交不应该包含这么多的东西。Git的设计还是很友好的，让你有后悔的机会去改正。   </p>
+<p>介绍几个常见的情形：   </p>
+<ol>
+<li><p>你在一次任务完成后，你要提交代码，使用<code>git add .</code>命令，在未使用commit命令之前，你觉得有一个文件现在提交太早了，那么，你可以使用<code>git rm --cached 文件名</code>， 记得要加<code>--cached</code>，表示是删除暂存区里的，如果直接使用<code>git rm</code>那么会把你本地的文件也删除掉。      </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/cached.jpg" class="">      </li>
+<li><p>如果你既add，又commit了, 然后稍加思考，觉得事情不对，觉得刚才的commit message写得有问题， 那么请敲下<code>git commit --amend</code>，然后就会跳到vi模式下，进行编辑你上一次的提交的信息。   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/amend.jpg" class="">      
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/amend_modify.jpg" class="">     
+<p>如上图所示，你需要修改的就是那写黄体的字，黄体字下面是你上一次提交的信息。   </p>
+</li>
+<li><p>如果你仔细思考，发现上一次提交的是什么鬼，决定全部删掉此次的提交重来，那么你有两个选择：   </p>
+<ul>
+<li>使用<code>git reset 提交的标识号</code>，先打印出你要回退的提交的标识号，使用<code>git log</code>， 或者上一篇文章里提到的<code>git log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit</code>当然正常人是不会去打这么一大长串的命令，正常的都配成别名<code>alias</code>， 比如，我要回退到下图中标记的提交，那么在控制台输入<code>git reset 96a6128</code>     <img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/reset.jpg" class="">   
+ <img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/logs.jpg" class="">   
+ 你可以通过这个命令回退到任何一个你需要的版本，但是在该提交之后的所有提交后都会没有，不过，当你的终端没有关闭，你可以找到之前的log中你最近提交的标识号，然后再用<code>git reset</code>，如果只是想单纯看看那次的提交是什么，你可以使用<code>git checkout 提交的标识号</code>, 这个命令会保持所有的提交不会被删除，你要回到当前分支的最新提交，就输入<code>git checkout 分支名</code>    <img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/checkout.jpg" class=""></li>
+<li>使用<code>git revert 提交的标识号</code>， 这个是git生成一个新的提交，这个的提交与你要回退的提交一模一样，比如你现在提交的分支是<code>a-&gt;b-&gt;c-&gt;d</code>，但是现在你想回到c，现在你只需撤销d的提交就可以回到c的状态了，即输入命令<code>git revert d</code>，这样你的仓库状态就回到c状态。所以在版本控制中，更倾向与使用revert来回退版本，这样可以保留之前的所有信息。 <img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/revert.jpg" class=""></li>
+</ul>
+</li>
+<li><p>如果你在编辑一个文件，突然发现，这还不如之前写得好，但是你又记不清你之前具体写的内容，你总不能一直用<code>Ctrl + z</code>，来撤销你的操作，一直回到最初状态，在<strong>git</strong>中，用<code>git checkout 文件名</code>，就可以恢复文件。   </p>
+</li>
+<li><p>当然一般最难受的时候就是，在你开发一个新的功能的时候，有人跟你说之前的功能有问题，你需要去修改bug，那你手头的工作还没保存下来，你也不能提交，这样会造成不必要的提交日志，你可以使用<code>git stash</code>，将你目前的工作先存放起来，当你修改完bug后要回到你之前的工作，使用<code>git stash pop</code>。</p>
+</li>
+</ol>
+<h1 id="Git-分支与远程命令"><a href="#Git-分支与远程命令" class="headerlink" title="Git 分支与远程命令"></a>Git 分支与远程命令</h1><p>前面讲了那么多的Git操作，都是在同一个分支里面操作的，没有体现出来分布式的概念，那么Git的分布式是怎样的呢？Git的分布式主要体现在分支(branch)上，那么下面就详细介绍branch的相关操作。   </p>
+<p>什么是分支，你可以看树杈，它有多个分支，Git的分支也是这样的，一个主分支，可以有多个其他分支。在建立一个Git仓库的时候，你就在一个分支里面了，那个分支就是master分支，一般叫做主分支。    </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branch.jpg" class="">   
+
+<p>那么你要创建自己的分支可以使用<code>git branch 分支名 </code>， 创建你的分支，再通过<code>git checkout 分支名</code> 来切换到你的分支。也可以使用<code>git checkout -b 分支名</code>直接新建并进入新的分支。</p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branches.jpg" class="">   
+
+<p>创建一个分支的话，是在你当前所在这个分支的基础上，创建一个跟你当前所在分支一模一样的分支，后续的修改之类的分支互不影响。   </p>
+<p>可以通过<code>git branch</code>查看当前项目的所有分支，前面带*号的就是当前所在的分支   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branch_list.jpg" class="">   
+
+<p>如果有个分支不需要了，那么，使用<code>git branch -d 分支名</code>删除分支，如果有特殊情况，要强制删除掉某一分支，使用<code>git branch -D 分支名</code>。切记不能在当前分支删除当前分支，必须切换到别的分支再执行删除操作。    </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/branch_delete.jpg" class="">   
+
+<p>与树杈不同的是，树杈一个分支分出去之后，就不会回来，但是Git的分支可以合并到任意一个分支。Git的合并是将一个分支合并到当前分支里面。一般有两种合并方式：   </p>
+<ol>
+<li><code>git merge 分支名</code>，这个合并可以保留分支来源。   </li>
+<li><code>git rebases 分支名</code>，将要合并的分支中新的内容直接加在当前分支后面，不会保留分支来源。</li>
+</ol>
+<p>一般团队合作的话，使用<code>git merge</code>这样就可以追根溯源了，个人的话可以使用<code>git rebase</code>，这样可以使提交记录更加简洁。   </p>
+<p>同时分支也会带来冲突问题，如果两个分支同时处理一个文件，那么就会产生冲突，需要我们手动解决。   </p>
+<p>有冲突的话，Git会有提示，会在分支名的后面标<strong>MERGING</strong>   </p>
+   
+
+<p>打开有冲突的文件，可以看到文件文件里面，Git都标出来了那边有冲突，<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code>到<code>======</code>表示当前分支在这个文件的修改，<code>=======</code>到<code>&gt;&gt;&gt;&gt;&gt;&gt;分支名</code>表示这个这个分支对这个文件的修改，根据需要修改冲突后，再使用<code>git add </code>和<code>git commit</code>的命令之后就可以了。      </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/conflict.jpg" class=""> 
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/conflict_solved.jpg" class="">   
+
+<p>这样本地分支常用的操作就是这些了。剩下的就是远程的，远程的操作主要有：与远程主机创建连接，上传新的内容，从远程主机获取新的内容。   </p>
+<p>与远程主机建立连接有两种协议：SSH 和 HTTPS，这两个具体协议的区别可以自己去查询，这里只介绍如何再这两种不同的协议建立连接。   </p>
+<p>首先，HTTPS的连接方式比较简单，只需要使用<code>git clone 地址连接</code>，会让你输入账号和密码，在之后的提交中，可能你每次的提交到远程主机上都需要输入一次账号和密码，就显得有些麻烦了。   </p>
+<p>使用SSH协议，不过，你需要先生成SSH密钥，使用<code>ssh-keygen -t rsa -C 邮箱</code>，邮箱一定是你在某一平台上的注册账号留下的邮箱。后面会有让你输入，直接按‘Enter’键。上面会有生成密钥的文件目录。   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/ssh_key.jpg" class="">   
+
+<p>之后去那个目录里面，会有一个id_rsa.pub，打开此文件，将里面的内容粘贴到相应平台设置SSH的地方，这样远程主机就能识别出你使用的这台电脑了。   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/ssh_key_file.jpg" class="">   
+
+<p>与远程主机建立联系的话，如果你是现在远程主机上建立的项目，本地是空的话，可以直接使用<code>git clone</code>把项目拷贝下来。如果是本地已经有一个项目了，要放在远程主机的话，现在远程主机上建立一个空的项目，然后使用<code>git remote add 远程主机名 远程链接</code>，一般远程主机名使用origin，这样就建立好了远程联系了。   </p>
+<p>一般第一次提交的话，使用<code>git push -u origin master</code>，后续的提交的话就可以直接用<code>git push 远程主机名 本地分支名</code>，这个命令的完整格式是：<code>git push 远程主机名 本地分支名:远程分支名</code>，一般而言，远程分支名与本地分支名一致，这样便于管理。如果删除远程的一个分支的话，本地分支名就不用写了，即<code>git push 远程主机名 :远程分支名</code>   </p>
+<blockquote>
+<p>从远程分支获取更新但不合并： <code>git fetch 远程主机名 远程分支名</code><br>从远程分支获取更新并合并：<code>git pull 远程主机名 远程分支名:本地分支名</code>   </p>
+</blockquote>
+<p>上述就是Git分支的主要操作，相信你熟悉了这写操作之后就可以使用Git进行团队开发了。(注意命令中的<code>:</code>为英文的字符)</p>
+<p>经过上面的讲解，Git的基本操作就是这些，我也自己通过思维导图整理出来，供大家参考：   </p>
+<img src="/2019/01/23/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B/Git.png" class="">   
+
+<p>有需要的话，也可以进入<a target="_blank" rel="noopener" href="https://mubu.com/doc/xE1EOOAV40"><strong>在线预览</strong></a>   </p>
+<p>在此介绍的都是一些常用的Git命令，Git是一个版本控制工具，工具的熟练程度一定是通过经常使用才熟悉的，所以一定要去找一个项目练练手。像基于Git的代码托管平台最有名气的就是<a target="_blank" rel="noopener" href="https://github.com/"><strong>GitHub</strong></a>，当然在国内的话，有<a target="_blank" rel="noopener" href="https://dev.tencent.com/user?welcome"><strong>coding</strong></a>, <a target="_blank" rel="noopener" href="https://gitee.com/"><strong>码云</strong></a>等平台，可以入手一个动手实践一下。不过，如果想自己打一个代码托管平台，也是可以的，你可以自己买个VPS，在上面部署Git，具体步骤可自已通过搜索引擎查找。</p>
+<p>如果基础的Git命令已经掌握了，想进一步进阶的话，首推Git官网出版的Git说明书 <a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2"><strong>Pro Git</strong></a>   </p>
+<p>如果平时忘记了Git的命令行的使用，还是到搜索引擎查找吧。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/01/22/SQL%E7%BB%83%E4%B9%A0/" rel="prev" title="SQL练习">
+                  <i class="fa fa-angle-left"></i> SQL练习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/" rel="next" title="使用DigitalOcean服务器进行网络代理">
+                  使用DigitalOcean服务器进行网络代理 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">GroverZhu</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
