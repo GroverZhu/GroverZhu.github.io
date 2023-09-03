@@ -27,7 +27,7 @@
 <meta property="og:description" content="现在有关系模式如下所示： 1234Department(dNo,dName,officeRoom,homePage)Student(sNo,sName,sex,age,dNo)Course(cNo,cName,cPNo,credit,dNo)SC(sNo,cNo,score,recorddate)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-01-21T05:19:50.000Z">
-<meta property="article:modified_time" content="2023-09-02T13:41:23.521Z">
+<meta property="article:modified_time" content="2023-09-02T13:41:23.520Z">
 <meta property="article:author" content="GroverZhu">
 <meta property="article:tag" content="数据库关系代数">
 <meta name="twitter:card" content="summary">
@@ -263,76 +263,125 @@
 <h3 id="一基本查询"><strong>一、基本查询</strong></h3>
 <ol type="1">
 <li>查询所有年龄小于18岁的男生姓名<br />
-<span class="math display">\[\pi_{sname}(\sigma_{age&lt;18\bigwedge sex=&#39;man&#39;}(student))\]</span><br />
+<span class="math display">\[\pi_{sname}(\sigma_{age&lt;18\bigwedge
+sex=&#39;man&#39;}(student))\]</span><br />
 </li>
 <li>查询所有学分大于3的课程名称<br />
-<span class="math display">\[\pi_{cname}(\sigma_{credit&gt;3}(course))\]</span></li>
+<span
+class="math display">\[\pi_{cname}(\sigma_{credit&gt;3}(course))\]</span></li>
 <li>查询所有没有先修课的课程名称<br />
-<span class="math display">\[\pi_{cname}(\sigma_{cPNo\  is\  null}(course))\]</span></li>
+<span
+class="math display">\[\pi_{cname}(\sigma_{cPNo\  is\  null}(course))\]</span></li>
 </ol>
 <h3 id="二连接查询"><strong>二、连接查询</strong></h3>
 <ol type="1">
 <li>查询“信息学院”所有学生姓名<br />
-<span class="math display">\[\pi_{sname}((\sigma_{dname=&#39;\text{信息学院}&#39;}(department))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}((\sigma_{dname=&#39;\text{信息学院}&#39;}(department))\Join
+student)\]</span><br />
 </li>
 <li>查询所有具有不及格记录的学生姓名<br />
-<span class="math display">\[\pi_{sname}((\sigma_{score&lt;60}(SC))\Join student)\]</span><br />
+<span class="math display">\[\pi_{sname}((\sigma_{score&lt;60}(SC))\Join
+student)\]</span><br />
 </li>
 <li>查询“信息学院”所有年龄小于18岁的女生姓名<br />
-<span class="math display">\[\pi_{sname}((\sigma_{age&lt;18\bigwedge sex=&#39;female&#39;}(student))\Join (\sigma_{dname=&#39;\text{信息学院}&#39;}(department)))\]</span><br />
+<span class="math display">\[\pi_{sname}((\sigma_{age&lt;18\bigwedge
+sex=&#39;female&#39;}(student))\Join
+(\sigma_{dname=&#39;\text{信息学院}&#39;}(department)))\]</span><br />
 </li>
 <li>查询所有选修了“数据库”课程的学生姓名<br />
-<span class="math display">\[\pi_{sname}(\pi_{cno}(\pi_{cname=&#39;\text{数据库}&#39;}(course))\Join SC \Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}(\pi_{cno}(\pi_{cname=&#39;\text{数据库}&#39;}(course))\Join
+SC \Join student)\]</span><br />
 </li>
 <li>查询“信息学院”所有选修了“科学技术简史”课程的学生姓名<br />
-<span class="math display">\[\pi_{sname}(\pi_{sno}(\sigma_{cname=&#39;\text{科学技术简史}&#39;}(course))\Join SC\Join student \Join(\pi_{cname=&#39;\text{信息学院}&#39;}(department)))\]</span><br />
+<span
+class="math display">\[\pi_{sname}(\pi_{sno}(\sigma_{cname=&#39;\text{科学技术简史}&#39;}(course))\Join
+SC\Join student
+\Join(\pi_{cname=&#39;\text{信息学院}&#39;}(department)))\]</span><br />
 </li>
 <li>查询选修了“数据结构”课程并且不及格的学生姓名<br />
-<span class="math display">\[\pi_{sname}(\pi_{cno}(\sigma_{cname=&#39;\text{数据结构}&#39;}(course))\Join (\sigma_{credit&lt;60}(SC))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}(\pi_{cno}(\sigma_{cname=&#39;\text{数据结构}&#39;}(course))\Join
+(\sigma_{credit&lt;60}(SC))\Join student)\]</span><br />
 </li>
 <li>查询“计算机学院”选修了“概率论”课程且成绩大于等于80分的学生姓名<br />
-<span class="math display">\[\pi_{sname}((\sigma_{dname=&#39;\text{计算机学院}&#39;}\Join \pi_{cno}(\sigma_{cname=&#39;\text{概率论}&#39;}(course))\Join (\sigma_{score\geq 80}(SC))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}((\sigma_{dname=&#39;\text{计算机学院}&#39;}\Join
+\pi_{cno}(\sigma_{cname=&#39;\text{概率论}&#39;}(course))\Join
+(\sigma_{score\geq 80}(SC))\Join student)\]</span><br />
 </li>
 <li>查询“文学院”开设的所有学分大于等于3的课程名称<br />
-<span class="math display">\[\pi_{cname}((\sigma_{dname=&#39;\text{文学院}&#39;}(department))\Join \sigma_{credit \geq 3}(course)))\]</span><br />
+<span
+class="math display">\[\pi_{cname}((\sigma_{dname=&#39;\text{文学院}&#39;}(department))\Join
+\sigma_{credit \geq 3}(course)))\]</span><br />
 </li>
 <li>查询“信息学院”所有选修了“数据库”课程并且不及格的学生姓名及分数<br />
-<span class="math display">\[\pi_{sname,score}((\sigma_{dname=&#39;\text{信息学院}&#39;}(department))\Join (\pi_{cno}(\sigma_{cname=&#39;\text{数据库}&#39;}(course)))\Join (\sigma_{score&lt;60}(SC))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname,score}((\sigma_{dname=&#39;\text{信息学院}&#39;}(department))\Join
+(\pi_{cno}(\sigma_{cname=&#39;\text{数据库}&#39;}(course)))\Join
+(\sigma_{score&lt;60}(SC))\Join student)\]</span><br />
 </li>
 <li>查询“王强”同学所选修的全部课程名称、学分以及开课学院。<br />
-<span class="math display">\[\pi_{cname,credit,dname}(\pi_{cno}(\sigma_{sname=&#39;\text{王强}&#39;}(student)\Join SC)\Join course \Join department)\]</span></li>
+<span
+class="math display">\[\pi_{cname,credit,dname}(\pi_{cno}(\sigma_{sname=&#39;\text{王强}&#39;}(student)\Join
+SC)\Join course \Join department)\]</span></li>
 </ol>
 <h3 id="三综合查询"><strong>三、综合查询</strong></h3>
 <ol type="1">
 <li>查询选修了“数据库”或者选修了“算法”课程的学生姓名<br />
-<span class="math display">\[\pi_{sname}(\sigma_{cname=&#39;\text{数据库}&#39;\bigvee cname=&#39;\text{算法}&#39;}(course))\Join SC \Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}(\sigma_{cname=&#39;\text{数据库}&#39;\bigvee
+cname=&#39;\text{算法}&#39;}(course))\Join SC \Join
+student)\]</span><br />
 </li>
 <li>查询选修了“数据库”并且选修了“算法”课程的学生姓名<br />
-<span class="math display">\[\pi_{sname((\pi_{sno,cno}(SC)\div(\sigma_{cname=&#39;\text{数据库}&#39;}\bigwedge cname=&#39;\text{算法}&#39;}(course))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname((\pi_{sno,cno}(SC)\div(\sigma_{cname=&#39;\text{数据库}&#39;}\bigwedge
+cname=&#39;\text{算法}&#39;}(course))\Join student)\]</span><br />
 </li>
 <li>查询选修了“数据库”但没有选修“算法”课程的学生姓名<br />
-<span class="math display">\[\pi_{sname}((\pi_{sno}(\sigma_{cname=&#39;\text{数据库}&#39;}(course))\Join SC)-(\pi_{sno}(\sigma_{cname=&#39;\text{算法}&#39;}(course))\Join SC))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}((\pi_{sno}(\sigma_{cname=&#39;\text{数据库}&#39;}(course))\Join
+SC)-(\pi_{sno}(\sigma_{cname=&#39;\text{算法}&#39;}(course))\Join
+SC))\Join student)\]</span><br />
 </li>
 <li>查询没有选修“算法”课程的学生姓名<br />
-<span class="math display">\[\pi_{sname}(student)-\pi_{sname}(\sigma_{cname=&#39;\text{算法}&#39;}(course)\Join SC \Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}(student)-\pi_{sname}(\sigma_{cname=&#39;\text{算法}&#39;}(course)\Join
+SC \Join student)\]</span><br />
 </li>
 <li>查询仅仅选修了“算法”一门课程的学生姓名<br />
-<span class="math display">\[\pi_{sname}((\pi_{sno}(SC)-\pi_{sno}(\pi_{cname&lt;&gt;&#39;\text{算法}&#39;}(course)\Join SC))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}((\pi_{sno}(SC)-\pi_{sno}(\pi_{cname&lt;&gt;&#39;\text{算法}&#39;}(course)\Join
+SC))\Join student)\]</span><br />
 </li>
 <li>查询选修了“信息学院”开设的所有课程的学生姓名<br />
-<span class="math display">\[\pi_{cno,sname}(SC\Join student)\div\pi_{cno}((\sigma_{dname=&#39;\text{信息学院}&#39;}(department))\Join course)\]</span><br />
+<span class="math display">\[\pi_{cno,sname}(SC\Join
+student)\div\pi_{cno}((\sigma_{dname=&#39;\text{信息学院}&#39;}(department))\Join
+course)\]</span><br />
 </li>
 <li>查询选修了所有学分大于3课程的学生姓名<br />
-<span class="math display">\[\pi_{sname}(\pi_{cno,sno}(SC)\div\pi_{cno}(\sigma_{credit&gt;3}(course))\Join student)\]</span><br />
+<span
+class="math display">\[\pi_{sname}(\pi_{cno,sno}(SC)\div\pi_{cno}(\sigma_{credit&gt;3}(course))\Join
+student)\]</span><br />
 </li>
 <li>查询“数据库”课程所有不及格学生姓名及所在学院<br />
-<span class="math display">\[\pi_{sname,dname}((\pi_{sno}(\sigma_{cname=&#39;\text{数据库}&#39;}(course)\Join \sigma_{score&lt;60}(SC))\Join student\Join department))\]</span><br />
+<span
+class="math display">\[\pi_{sname,dname}((\pi_{sno}(\sigma_{cname=&#39;\text{数据库}&#39;}(course)\Join
+\sigma_{score&lt;60}(SC))\Join student\Join department))\]</span><br />
 </li>
 <li>查询“数据库”先修课的课程名称<br />
-<span class="math display">\[\pi_{cname}(\pi_{cpno}(\sigma{cname=&#39;\text{数据库}&#39;}(course \ \  AS\ \  C1)){\mathop \Join\limits_{C1.cpno=C2.cno}}(course\ \  AS\ \  C2))\]</span><br />
+<span
+class="math display">\[\pi_{cname}(\pi_{cpno}(\sigma{cname=&#39;\text{数据库}&#39;}(course
+\ \  AS\ \  C1)){\mathop \Join\limits_{C1.cpno=C2.cno}}(course\ \  AS\
+\  C2))\]</span><br />
 </li>
 <li>查询先修课为“数据库”的课程名称<br />
-<span class="math display">\[\pi_{cname}(\pi_{cpno}(\sigma{cname=&#39;\text{数据库}&#39;}(course \ \  AS\ \  C1)){\mathop \Join\limits_{C1.cno=C2.cpno}}(course\ \  AS\ \  C2))\]</span></li>
+<span
+class="math display">\[\pi_{cname}(\pi_{cpno}(\sigma{cname=&#39;\text{数据库}&#39;}(course
+\ \  AS\ \  C1)){\mathop \Join\limits_{C1.cno=C2.cpno}}(course\ \  AS\
+\  C2))\]</span></li>
 </ol>
 
     </div>

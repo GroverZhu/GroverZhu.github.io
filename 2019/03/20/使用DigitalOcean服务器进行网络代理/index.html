@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://groverzhu.github.io/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR13_2018-07-16_19-49-47.png">
 <meta property="og:image" content="https://groverzhu.github.io/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR14_2018-07-16_19-50-58.png">
 <meta property="article:published_time" content="2019-03-20T07:28:44.000Z">
-<meta property="article:modified_time" content="2023-09-02T13:41:14.189Z">
+<meta property="article:modified_time" content="2023-09-02T13:41:14.180Z">
 <meta property="article:author" content="GroverZhu">
 <meta property="article:tag" content="Proxy">
 <meta name="twitter:card" content="summary">
@@ -278,7 +278,8 @@
 <span id="more"></span>
 <p>现在你在上网，刚好要访问一个放在远程服务器的网页，此时你的电脑和远程的服务器相当于上述两个聊天的人，但是由于距离太远，相当于一堵墙，此时需要一个“幽灵”来帮助你们之间的信息传输。在此使用DigitalOcean的服务器来实现“幽灵”的功能，也就是网络代理。</p>
 <h1 id="注册digitalocean账号">注册DigitalOcean账号</h1>
-<p>首先去<a target="_blank" rel="noopener" href="https://m.do.co/c/ac9819294f16">DigitalOcean</a>上去注册账号,就会送你10美元，现在政策好像改为100刀60天使用权了。登入之后看到如下界面，点击Create<br />
+<p>首先去<a
+target="_blank" rel="noopener" href="https://m.do.co/c/ac9819294f16">DigitalOcean</a>上去注册账号,就会送你10美元，现在政策好像改为100刀60天使用权了。登入之后看到如下界面，点击Create<br />
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR_2018-07-15_23-06-00.png" class=""><br />
 之后选择Droplets<br />
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR1_2018-07-15_23-09-54.png" class=""><br />
@@ -288,11 +289,13 @@
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR4_2018-07-15_23-13-47.png" class=""></p>
 <p>在选择好上述选项后点击确认创建，之后DigitalOcean就会给你发送邮件,里面有该服务器的IP地址，用户名和用户密码<br />
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR4_2018-07-15_23-21-46.png" class=""></p>
-<p>在Windows下通过<a target="_blank" rel="noopener" href="https://xshell.en.softonic.com/?ex=DSK-1262.6">Xshell</a>来连接到远程的服务器，新建一个会话，输入服务器IP地址，确认后，在连接成功后就可以输入用户名和密码进行连接<br />
+<p>在Windows下通过<a
+target="_blank" rel="noopener" href="https://xshell.en.softonic.com/?ex=DSK-1262.6">Xshell</a>来连接到远程的服务器，新建一个会话，输入服务器IP地址，确认后，在连接成功后就可以输入用户名和密码进行连接<br />
 <br />
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR7_2018-07-16_19-16-15.png" class=""><br />
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR8_2018-07-16_19-27-52.png" class=""></p>
-<p>如果电脑上有安装Git或者Bash Shell可以支持SSH连接的命令行工具的话，可以使用<code>ssh 用户名@IP地址</code>，该教程下，用户名为root，IP地址DigitalOcean提供，在建立连接之后，才会让你输入密码。</p>
+<p>如果电脑上有安装Git或者Bash
+Shell可以支持SSH连接的命令行工具的话，可以使用<code>ssh 用户名@IP地址</code>，该教程下，用户名为root，IP地址DigitalOcean提供，在建立连接之后，才会让你输入密码。</p>
 <h1 id="bbr-加速">BBR 加速</h1>
 <p>首先进行BBR加速，输入<br />
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh</span><br></pre></td></tr></table></figure></p>
@@ -303,8 +306,12 @@
 <blockquote>
 <p>一些Linux系统在最初命令可能会不全，需要下载相应的命令，在这个安装过程中，用到的<code>wget</code>这个命令可能会缺失，如果是RedHat系的Linux系统，使用<code>yum install wget</code>，如果是Debian系，使用<code>apt install wget</code>，本文使用的是CentOS，属于RedHat系的，使用第一个命令行就可以进行安装。</p>
 </blockquote>
-<p>安装完成后，脚本会提示需要重启 VPS，输入 y 并回车后重启。重启完成后，进入 VPS，验证一下是否成功安装最新内核并开启 TCP BBR，输入以下命令： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure> 返回值为<br />
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_available_congestion_control = bbr cubic reno</span><br></pre></td></tr></table></figure> 输入 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure> 返回值为 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br></pre></td></tr></table></figure> &gt;返回值有 tcp_bbr 模块即说明 bbr 已启动。注意：并不是所有的 VPS 都会有此返回值，若没有也属正常。</p>
+<p>安装完成后，脚本会提示需要重启 VPS，输入 y
+并回车后重启。重启完成后，进入 VPS，验证一下是否成功安装最新内核并开启
+TCP BBR，输入以下命令： <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure> 返回值为<br />
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_available_congestion_control = bbr cubic reno</span><br></pre></td></tr></table></figure> 输入 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure> 返回值为 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br></pre></td></tr></table></figure> &gt;返回值有
+tcp_bbr 模块即说明 bbr 已启动。注意：并不是所有的 VPS
+都会有此返回值，若没有也属正常。</p>
 <h1 id="shadowsocksr-安装">ShadowsocksR 安装</h1>
 <p>输入 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x shadowsocksR.sh   </span><br></pre></td></tr></table></figure>
@@ -323,7 +330,8 @@
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR13_2018-07-16_19-49-47.png" class=""><br />
 <img src="/2019/03/20/%E4%BD%BF%E7%94%A8DigitalOcean%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86/SSR14_2018-07-16_19-50-58.png" class=""><br />
 然后输入<br />
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/shadowsocks status</span><br></pre></td></tr></table></figure> 可以查看 ShadowsocksR 进程是否已经启动如果显示 running表示已经启动。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/shadowsocks status</span><br></pre></td></tr></table></figure> 可以查看 ShadowsocksR 进程是否已经启动如果显示
+running表示已经启动。</p>
 <p>这样就实现了“幽灵”这一角色的功能，最后只要在自己的客户端上安装ShadowsocksR就可以使用了，这样就完成了网络代理了。</p>
 
     </div>
